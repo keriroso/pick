@@ -1,2 +1,2 @@
 # pick
-App para huecas / trabajo de tesis
+App  / trabajo de tesis
