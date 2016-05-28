@@ -1,4 +1,4 @@
-<ion-view view-title="Iniciar sesion"  align-title="center">
+<ion-view view-title="Iniciar sesion"  align-title="left">
   <ion-content overflow-scroll=true scroll=true >
  <div class="list padding white-c">
       <label class="item item-input item-floating-label  ">
@@ -26,13 +26,14 @@
         <input type="email" ng-model='recuperar' class=' padding-left bold' placeholder="EMAIL">
       </label>
 
-      <button class="button button-full button-balanced ink" ng-click='requestPassword(recuperar);' >Enviar</button>
+      <button class="button button-full button-assertive ink" ng-click='requestPassword(recuperar);' >Enviar</button>
       </form>
       </ion-content>
       </ion-modal-view>
       </script>
-      <button ng-click='login(usuario1,pass);' class="button button-full  button-balanced texto-normal ink bold">Iniciar sesion</button>
+      <button ng-click='login(usuario1,pass);' class="button button-full  button-assertive texto-normal ink bold">Iniciar sesion</button>
 
     </div>
+    <ion-spinner class="spinner-energized app-loading" ng-show='isLoading' icon='ripple'></ion-spinner>
   </ion-content>
 </ion-view>

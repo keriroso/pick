@@ -51,6 +51,7 @@ angular.module('pickplace.controllers', ['pickplace.services'])
     });
     }else{
       showAlert('Ingrese los campos vacíos');
+        $scope.isLoading = false;
     }
 };
   $scope.EliminarSession = function(cargar) {
@@ -105,7 +106,8 @@ $scope.requestPassword=function(valor){
         success: function(result) {
           if (result[0]) {
              $scope.isLoading = false;
-            alert('Instrucciones adicionales han sido enviados a su dirección de e-mail.');
+             alert('Instrucciones adicionales han sido enviados a su dirección de e-mail.');
+             $scope.closeModal();
           }
         }
 

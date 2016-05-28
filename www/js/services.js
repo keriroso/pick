@@ -30,7 +30,6 @@ angular.module('pickplace.services', [])
             setLocalVariable('Intro',true);
             this.UserSession = result.user;
             defer.resolve(result.user);
-
           }
         },
         error:function(xhr, status, message){

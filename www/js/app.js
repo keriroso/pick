@@ -41,7 +41,7 @@ angular.module('pickplace', [
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
     // Turn off back button text
-    $ionicConfigProvider.backButton.previousTitleText(true);
+    $ionicConfigProvider.backButton.previousTitleText(false);
 
     $stateProvider.state('tab', {
       url: "/tab",

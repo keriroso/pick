@@ -30,12 +30,48 @@ h1 {
   text-shadow: 0 1px 0px #000;
   font-size: 42px;
 }
+span.back-text {
+    display: none!important;
+}
+.app-loading{
+position: absolute;
+height: 100%;
+width: 100%;
+z-index: 2;
+background: rgba(255, 255, 255, 0.72);
+text-align: center;
+top: 0;
+}
+.spinner svg {
+    /* width: 1em; */
+    /* height: 1em; */
+    width: 25%!important;
+    height: auto!important;
+    margin: 20% 0% 0% 0%;
+}
+.fondo-block{
+  height: 100%;
+  position: absolute;
+  background: rgba(0,0,0,0.65);
+  width: 100%;
 
+}
+.skip{
+  top: 0;
+  position: absolute;
+  right: 0;
+  border: 0px solid #ccc;
+  text-transform: uppercase;
+  color: #e67e22;
+  font-size: 2em;
+  z-index: 1;
+  background: transparent;
+}
 .carrot-b{
-  background: #e0813d!important
+  background: #e67e22!important
 }
 .carrot-c{
-  color: #e0813d!important
+  color: #e67e22!important
 }
 /*.carrot-c{
 color: #f39c12!important
@@ -208,7 +244,7 @@ input {
 }
 .slider-pager .slider-pager-page ,
 .slider-pager-page {
-  color: #000;
+  color: #e67e22;
 }
 .black-c{
   color: black;
@@ -224,4 +260,9 @@ input {
 
 .tab-nav.tabs{
   background: #e67e22!important
+}
+.button.button-assertive {
+  border-color: transparent;
+  background-color: #e74c3c!important;
+  color: #fff;
 }

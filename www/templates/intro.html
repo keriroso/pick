@@ -1,5 +1,5 @@
-<ion-view view-title="Bienvenido" align-title='center' >
-  <ion-nav-buttons side="left">
+<ion-view view-title="Bienvenido" align-title='center' hide-nav-bar="true" >
+  <ion-nav-buttons side="left" class="white-b">
     <button class="button button-clear no-animation"
     ng-click="startApp()" ng-show="!slideIndex">
     Skip
@@ -15,28 +15,28 @@
 <button class="button button-clear no-animation  icon-right ion-home" ng-click="startApp()" ng-show="slideIndex == 2">
 </button>
 </ion-nav-buttons>
-
+<button class=" skip icon-right ion-home" ng-click="startApp()"></button>
 <ion-slide-box on-slide-changed="slideChanged(index)">
   <ion-slide>
-    <h3>¡Bienvenido a Pick!</h3>
+    <h3 class="carrot-c">¡Bienvenido a Pick!</h3>
     <div class="logo">
       <img src="assets/intro/01.png" class="img-responsive">
     </div>
-    <h3>Busca</h3>
+    <h3 class="carrot-c">Busca</h3>
   </ion-slide>
   <ion-slide>
-    <h3>¡Bienvenido a Pick!</h3>
+    <h3 class="carrot-c">¡Bienvenido a Pick!</h3>
     <div class="logo">
       <img src="assets/intro/02.png" class="img-responsive">
     </div>
-    <h3>Descubre</h3>
+    <h3 class="carrot-c">Descubre</h3>
   </ion-slide>
   <ion-slide>
-    <h3>¡Bienvenido a Pick!</h3>
+    <h3 class="carrot-c">¡Bienvenido a Pick!</h3>
     <div class="logo">
       <img src="assets/intro/03.png" class="img-responsive">
     </div>
-    <h3>Disfruta</h3>
+    <h3 class="carrot-c">Disfruta</h3>
   </ion-slide>
 </ion-slide-box>
 </ion-view>

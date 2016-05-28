@@ -1,4 +1,4 @@
-<ion-view view-title="Registro"  align-title="center">
+<ion-view view-title="Registro"  align-title="left">
   <ion-content >
     <div class="list texto-grande padding">
         <form name='FormRegister' >
@@ -14,12 +14,11 @@
             <span class="input-label texto-normal carrot-c ">Contraseña</span>
             <input type="password" ng-model='contrasena' class='smoke padding-left '  required placeholder="CONTRASEÑA">
           </label>
-
+          <br>
+          <button ng-controller='PopupCtrl' class="button button-full button-assertive height no-margin ink" ng-click='createAccount(username,email,contrasena)'>
+            Registrarse</button>
         </form>
-      </div>
-      <div class="bar bar-footer bar-balanced">
-        <button ng-controller='PopupCtrl' class="button button-full button-balanced height no-margin ink" ng-click='createAccount(username,email,contrasena)'>
-          Registrarse</button>
-      </div>
+      </div
+      <ion-spinner class="spinner-energized app-loading" ng-show='isLoading' icon='ripple'></ion-spinner>
     </ion-content>
   </ion-view>
