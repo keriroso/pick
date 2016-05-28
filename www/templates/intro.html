@@ -1,0 +1,42 @@
+<ion-view view-title="Bienvenido" align-title='center' >
+  <ion-nav-buttons side="left">
+    <button class="button button-clear no-animation"
+    ng-click="startApp()" ng-show="!slideIndex">
+    Skip
+  </button>
+  <button class="button button-clear no-animation icon-left ion-chevron-left"
+  ng-click="previous()" ng-show="slideIndex > 0">
+</button>
+</ion-nav-buttons>
+<ion-nav-buttons side="right">
+  <button class="button button-clear no-animation icon-right ion-chevron-right"
+  ng-click="next()" ng-show="slideIndex != 2">
+</button>
+<button class="button button-clear no-animation  icon-right ion-home" ng-click="startApp()" ng-show="slideIndex == 2">
+</button>
+</ion-nav-buttons>
+
+<ion-slide-box on-slide-changed="slideChanged(index)">
+  <ion-slide>
+    <h3>¡Bienvenido a Pick!</h3>
+    <div class="logo">
+      <img src="assets/intro/01.png" class="img-responsive">
+    </div>
+    <h3>Busca</h3>
+  </ion-slide>
+  <ion-slide>
+    <h3>¡Bienvenido a Pick!</h3>
+    <div class="logo">
+      <img src="assets/intro/02.png" class="img-responsive">
+    </div>
+    <h3>Descubre</h3>
+  </ion-slide>
+  <ion-slide>
+    <h3>¡Bienvenido a Pick!</h3>
+    <div class="logo">
+      <img src="assets/intro/03.png" class="img-responsive">
+    </div>
+    <h3>Disfruta</h3>
+  </ion-slide>
+</ion-slide-box>
+</ion-view>

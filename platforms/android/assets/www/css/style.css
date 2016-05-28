@@ -1,0 +1,139 @@
+/* General
+==================================*/
+h1 {
+  color: #fff;
+  text-shadow: 0 1px 0px #000;
+  font-size: 42px;
+}
+.texto-grande{
+  text-transform: uppercase;
+}
+.texto-pequeno{
+  text-transform: lowercase;
+}
+.texto-normal{
+  text-transform: inherit;
+}
+.texto-capital{
+  text-transform: capitalize;
+}
+.no-padding{
+  padding: 0;
+}
+.no-margin{
+  margin: 0
+}
+.both{
+  clear: both;
+}
+.none{
+  float: none;
+}
+.left{
+float: left;
+}
+.right{
+  float: right;
+}
+.text-center{
+  text-align: center;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.text-justify{
+  text-align: justify;
+}
+
+
+/* Utilities
+==================================*/
+.title-bordered {
+  border-top: solid 2px #bbb;
+  padding-top: 30px;
+}
+
+p {
+  color: #555;
+  margin: 0 0 25px;
+}
+
+.scroll {
+  height: 100%;
+}
+
+
+/* Menu
+==================================*/
+.menu .bar.bar-header.expanded {
+  transition: all .5s ease-in-out;
+}
+
+.menu-open .bar.bar-header.expanded {
+  background-color: #222;
+}
+
+.menu h2 {
+  bottom: 0;
+  font-size: 18px;
+  left: 16px;
+  position: absolute;
+}
+
+.menu .avatar {
+  height: 88px;
+  width: 88px;
+}
+
+.menu.menu-left * {
+  font-weight: bold;
+}
+
+.menu-open .ion-navicon {
+  transform: rotate(-360deg);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu-open .ion-navicon:before {
+  content: "\f2ca";
+}
+
+
+/* Login
+==================================*/
+.app-icon {
+  background-color: #fff;
+  background: url('../img/login/pick-logo.png') center;
+  background-size: cover;
+  /*border-radius: 50%;*/
+  height: 130px;
+  margin: 0px auto;
+  width: 215px;
+}
+.item-md-label input {
+    color: #FFF;
+    letter-spacing: 0.15rem;
+    position: relative;
+    z-index: 1;
+    padding: 10px;
+    background-color: transparent;
+    bottom: 0px;
+}
+.item-md-label .input-label{
+  text-transform: uppercase;
+}
+.item{
+  width: auto;
+}
+.hero.no-header {
+  /*  height: 288px;*/
+}
+
+.social-login {
+  position: fixed;
+  bottom: 0;
+}
