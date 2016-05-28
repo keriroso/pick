@@ -41,11 +41,12 @@ angular.module('pickplace.controllers', ['pickplace.services'])
       IniciarSesion.getSession(true,user1,pass).then(function(data){
       $scope.isLoading = false;
       $rootScope.usuario=data;
-      if(window.localStorage.getItem('Preferencia')==true){
-      $state.go('tab.main');
-      }else{
-      $state.go('preferencia');
-      }
+      // if(window.localStorage.getItem('Preferencia')==true){
+      // $state.go('tab.main');
+      // }else{
+      // $state.go('preferencia');
+      // }
+       $state.go('tab.main');
       console.log($scope.usuario);
     });
     }else{
@@ -93,7 +94,7 @@ $scope.createAccount = function(nombre,correo,clave){
     console.log($scope.msgError.form_errors.mail);
     console.log($scope.msgError.form_errors.pass);
     $scope.msg='Formulario:'+$scope.msgError.form_errors.name+''+$scope.msgError.form_errors.mail+''+$scope.msgError.form_errors.pass;
-    showAlertas('Formulario Registro',message);
+    showAlert($scope.msg);
   }
 });
 };
