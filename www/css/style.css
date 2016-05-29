@@ -42,6 +42,9 @@ background: rgba(255, 255, 255, 0.72);
 text-align: center;
 top: 0;
 }
+.space-none{
+      white-space: initial!important;
+}
 .spinner svg {
     /* width: 1em; */
     /* height: 1em; */

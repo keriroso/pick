@@ -2,8 +2,8 @@
 'use strict';
 angular.module('pickplace.controllers', ['pickplace.services'])
 /*
-  INTRO
-  Controlador para el intro de pick
+INTRO
+Controlador para el intro de pick
 
 */
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,$window) {
@@ -30,37 +30,41 @@ angular.module('pickplace.controllers', ['pickplace.services'])
 
 })
 /*
-  LOGIN
-  Funcion de inicio de sesion
+LOGIN
+Funcion de inicio de sesion
 */
-.controller('UsuarioCtrl', function($scope, $timeout,$state, $stateParams, ionicMaterialInk,$rootScope,IniciarSesion,$window,$ionicModal) {
-//funcion para inicio de session
+.controller('UsuarioCtrl', function($scope,$sce,$timeout,$state, $stateParams, ionicMaterialInk,$rootScope,IniciarSesion,$window,$ionicModal,$ionicPopup) {
+  //funcion para inicio de session
   $scope.login = function(user1,pass) {
     $scope.isLoading = true;
     if(user1!=null && pass!=null){
       IniciarSesion.getSession(true,user1,pass).then(function(data){
-      $scope.isLoading = false;
-      $rootScope.usuario=data;
-      // if(window.localStorage.getItem('Preferencia')==true){
-      // $state.go('tab.main');
-      // }else{
-      // $state.go('preferencia');
-      // }
-       $state.go('tab.main');
-      console.log($scope.usuario);
-    });
-    }else{
-      showAlert('Ingrese los campos vacíos');
+        console.log(data);
         $scope.isLoading = false;
+        $rootScope.usuario=data;
+        // if(window.localStorage.getItem('Preferencia')==true){
+        // $state.go('tab.main');
+        // }else{
+        // $state.go('preferencia');
+        // }
+        $state.go('tab.main');
+        console.log($scope.usuario);
+      }).catch(function(data) {
+        $scope.showAlertas('Error',data);
+        $scope.isLoading = false;
+      });
+    }else{
+      $scope.showAlertas('Error','Ingrese los campos vacíos');
+      $scope.isLoading = false;
     }
-};
+  };
   $scope.EliminarSession = function(cargar) {
-  $scope.isLoading = true;
+    $scope.isLoading = true;
     if(cargar){
       user_logout({
         success:function(result){
           if (result[0]) {
-             alert("Logged out!");
+            alert("Logged out!");
           }
         }
       });
@@ -73,57 +77,73 @@ angular.module('pickplace.controllers', ['pickplace.services'])
       $window.location.href='#/inicio';
     }
     $scope.isLoading = false;
-};
-$scope.createAccount = function(nombre,correo,clave){
-  $scope.isLoading = true;
-  var account = {
-   name:nombre,
-   mail:correo,
-   pass:clave,
-   field_prueba:'prueba'
   };
-  user_save(account,{
-     success:function(result) {
-       $scope.login(nombre,clave);
-  },
-  error:function(xhr, status, message){
-    console.log(xhr);
-    console.log(status);
-    $scope.isLoading = false;
-    $scope.msgError=angular.fromJson(message);
-    console.log($scope.msgError.form_errors.name);
-    console.log($scope.msgError.form_errors.mail);
-    console.log($scope.msgError.form_errors.pass);
-    $scope.msg='Formulario:'+$scope.msgError.form_errors.name+''+$scope.msgError.form_errors.mail+''+$scope.msgError.form_errors.pass;
-    showAlert($scope.msg);
-  }
-});
-};
-$scope.requestPassword=function(valor){
-   $scope.isLoading = true;
-   if(valor!=null){
-    user_request_new_password(valor, {
+  $scope.createAccount = function(nombre,correo,clave){
+    $scope.isLoading = true;
+    var account = {
+      name:nombre,
+      mail:correo,
+      pass:clave,
+      field_prueba:'prueba'
+    };
+    user_save(account,{
+      success:function(result) {
+        $scope.login(nombre,clave);
+      },
+      error:function(xhr, status, message){
+        console.log(xhr);
+        console.log(status);
+        $scope.isLoading = false;
+        $scope.msgError=angular.fromJson(message);
+
+        var name='';
+        var mail='';
+        var pass='';
+        if(!angular.isUndefined($scope.msgError.form_errors.name)){
+          name='<ion-item class="space-none">'+$scope.msgError.form_errors.name+'</ion-item>';
+        }
+        if(!angular.isUndefined($scope.msgError.form_errors.mail)){
+          mail='<ion-item class="space-none">'+$scope.msgError.form_errors.mail+'</ion-item>';
+        }
+        if(!angular.isUndefined($scope.msgError.form_errors.pass)){
+          pass='<ion-item class="space-none">'+$scope.msgError.form_errors.pass+'</ion-item>';
+        }
+              $scope.msg='<ion-list>'+name+mail+pass+'</ion-list>';
+        console.log($scope.msgError.form_errors.name);
+        console.log($scope.msgError.form_errors.mail);
+        console.log($scope.msgError.form_errors.pass);
+
+
+        $scope.showAlertas('Formulario',$scope.msg);
+      }
+    });
+  };
+  $scope.requestPassword=function(valor){
+    $scope.isLoading = true;
+    if(valor!=null){
+      user_request_new_password(valor, {
         success: function(result) {
           if (result[0]) {
-             $scope.isLoading = false;
-             alert('Instrucciones adicionales han sido enviados a su dirección de e-mail.');
-             $scope.closeModal();
+            $scope.isLoading = false;
+            $scope.showAlertas('Recuperar Contraseña','Instrucciones adicionales han sido enviados a su dirección de e-mail.');
+            $scope.closeModal();
           }
         }
 
-  });
-   }else {
-     showAlert('Ingrese un email valído');
-   }
-};
-$scope.RegisterApp = function() {
-  $state.go('registro');
-};
-$scope.LoginApp = function() {
-  $state.go('login');
-};
-// recuperar password
-$ionicModal.fromTemplateUrl('password.html', {
+      });
+    }else {
+      $scope.showAlertas('Error','Ingrese un email valído');
+      $scope.isLoading = false;
+    }
+  };
+  $scope.RegisterApp = function() {
+    $state.go('registro');
+  };
+  $scope.LoginApp = function() {
+    $state.go('login');
+  };
+  // recuperar password
+  $ionicModal.fromTemplateUrl('password.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
@@ -147,109 +167,123 @@ $ionicModal.fromTemplateUrl('password.html', {
   $scope.$on('modal.removed', function() {
     // Execute action
   });
+  $scope.showAlertas = function(titulo,mensaje) {
+    var alertPopup = $ionicPopup.alert({
+      title: titulo,
+      template:  $sce.trustAsHtml(mensaje),
+      buttons: [
+        { text: 'OK',
+        type:'button-assertive',
+        }
+    ]
+  });
+  alertPopup.then(function(res) {
+    // console.log('res');
+  });
+};
 })
 
 .controller('PopupCtrl',function($scope, $ionicPopup, $timeout) {
 
-// Triggered on a button click, or some other target
-$scope.showPopup = function() {
-  $scope.data = {};
+  // Triggered on a button click, or some other target
+  $scope.showPopup = function() {
+    $scope.data = {};
 
-  // An elaborate, custom popup
-  var myPopup = $ionicPopup.show({
-    template: '<input type="password" ng-model="data.wifi">',
-    title: 'Enter Wi-Fi Password',
-    subTitle: 'Please use normal things',
-    scope: $scope,
-    buttons: [
-      { text: 'Cancel' },
-      {
-        text: '<b>Save</b>',
-        type: 'button-positive',
-        onTap: function(e) {
-          if (!$scope.data.wifi) {
-            //don't allow the user to close unless he enters wifi password
-            e.preventDefault();
-          } else {
-            return $scope.data.wifi;
+    // An elaborate, custom popup
+    var myPopup = $ionicPopup.show({
+      template: '<input type="password" ng-model="data.wifi">',
+      title: 'Enter Wi-Fi Password',
+      subTitle: 'Please use normal things',
+      scope: $scope,
+      buttons: [
+        { text: 'Cancel' },
+        {
+          text: '<b>Save</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            if (!$scope.data.wifi) {
+              //don't allow the user to close unless he enters wifi password
+              e.preventDefault();
+            } else {
+              return $scope.data.wifi;
+            }
           }
         }
+      ]
+    });
+
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+
+    $timeout(function() {
+      myPopup.close(); //close the popup after 3 seconds for some reason
+    }, 3000);
+  };
+
+  // A confirm dialog
+  $scope.showConfirm = function() {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Consume Ice Cream',
+      template: 'Are you sure you want to eat this ice cream?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res) {
+        console.log('You are sure');
+      } else {
+        console.log('You are not sure');
       }
-    ]
-  });
+    });
+  };
 
-  myPopup.then(function(res) {
-    console.log('Tapped!', res);
-  });
+  // An alert dialog
+  $scope.showAlertas = function(titulo,mensaje) {
+    var alertPopup = $ionicPopup.alert({
+      title: titulo,
+      template: mensaje
+    });
 
-  $timeout(function() {
-     myPopup.close(); //close the popup after 3 seconds for some reason
-  }, 3000);
- };
-
- // A confirm dialog
- $scope.showConfirm = function() {
-   var confirmPopup = $ionicPopup.confirm({
-     title: 'Consume Ice Cream',
-     template: 'Are you sure you want to eat this ice cream?'
-   });
-
-   confirmPopup.then(function(res) {
-     if(res) {
-       console.log('You are sure');
-     } else {
-       console.log('You are not sure');
-     }
-   });
- };
-
- // An alert dialog
- $scope.showAlertas = function(titulo,mensaje) {
-   var alertPopup = $ionicPopup.alert({
-     title: titulo,
-     template: mensaje
-   });
-
-   alertPopup.then(function(res) {
-     console.log('Thank you for not eating my delicious ice cream cone');
-   });
- };
+    alertPopup.then(function(res) {
+      console.log('Thank you for not eating my delicious ice cream cone');
+    });
+  };
 })
 .controller('MainCtrl', function($scope, $state) {
   /*$scope.eventos = [];
   $scope.isLoading = true;
 
   $scope.loadInfo = function (forceLoading){
-    $scope.isLoading = true;
+  $scope.isLoading = true;
 
-    if (forceLoading === undefined){
-      forceLoading = false;
-    }
+  if (forceLoading === undefined){
+  forceLoading = false;
+}
 
-    Competencias.getList(forceLoading).then(function(data){
-      $scope.isLoading = false;
-      $scope.eventos = data;
-      console.log(data);
-    });
-  };
+Competencias.getList(forceLoading).then(function(data){
+$scope.isLoading = false;
+$scope.eventos = data;
+console.log(data);
+});
+};
 
-  $scope.showEvento = function(idEvento){
-    // console.log("Moviendose al evento " + idEvento);
+$scope.showEvento = function(idEvento){
+// console.log("Moviendose al evento " + idEvento);
 
-    $state.go('detalle_evento', {'eventoId': idEvento});
-  };
+$state.go('detalle_evento', {'eventoId': idEvento});
+};
 
-  $scope.actualizarCompetencias = function(){
-    $scope.loadInfo(true);
-  };
+$scope.actualizarCompetencias = function(){
+$scope.loadInfo(true);
+};
 
-  $scope.toIntro = function(){
-    $state.go('intro');
-  };
+$scope.toIntro = function(){
+$state.go('intro');
+};
 
-  console.log("Inicio");
-  $scope.loadInfo();
-  */
+console.log("Inicio");
+$scope.loadInfo();
+*/
 })
 
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {

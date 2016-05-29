@@ -6,7 +6,6 @@ angular.module('pickplace.services', [])
 
   this.getSession = function(Cargar,user1,pass) {
     var defer = $q.defer();
-
     var InicioSession = parseInt(getLocalVariable('Usuario') );
     console.log(InicioSession);
     // Si no hay un valor anterior, asumir que es cero
@@ -35,7 +34,7 @@ angular.module('pickplace.services', [])
         error:function(xhr, status, message){
           console.log(xhr);
           console.log(status);
-          showAlert(message);
+          defer.reject(message);
         }
       });
     }else {
