@@ -1,0 +1,27 @@
+.app-loading{
+position: absolute;
+height: 100%;
+width: 100%;
+z-index: 2;
+background: rgba(255, 255, 255, 0.72);
+text-align: center;
+top: 0;
+}
+
+span.back-text {
+    display: none!important;
+}
+.spinner svg {
+    /* width: 1em; */
+    /* height: 1em; */
+    width: 25%!important;
+    height: auto!important;
+    margin: 20% 0% 0% 0%;
+}
+.fondo-block{
+  height: 100%;
+  position: absolute;
+  background: rgba(0,0,0,0.65);
+  width: 100%;
+
+}
