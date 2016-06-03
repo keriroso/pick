@@ -7,6 +7,19 @@ background: rgba(255, 255, 255, 0.72);
 text-align: center;
 top: 0;
 }
+.list-preferencia{
+  display: flex;
+  overflow-x: scroll;
+  flex-direction: row;
+  -webkit-display:flex;
+  -webkit-flex-direction:row;
+}
+.item-thumbnail-preferencia{
+  padding: 15%;
+  border-top: 1px solid #e74c3c;
+  border-left: 1px solid #e74c3c;
+  border-bottom: 1px solid #e74c3c;
+}
 
 span.back-text {
     display: none!important;

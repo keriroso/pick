@@ -10,7 +10,7 @@ angular.module('pickplace', [
       // for form inputs)
 
       if (window.localStorage.getItem("Usuario") != null && window.localStorage.getItem("SessionToken") != null
-      && window.localStorage.getItem("SessionName") != null && window.localStorage.getItem("SessionId") != null) {
+      && window.localStorage.getItem("SessionName") != null && window.localStorage.getItem("SessionId") != null && window.localStorage.getItem("Preferencia") != null) {
         $rootScope.usuario=angular.fromJson(getLocalVariable('Usuario'));
         console.log($rootScope.usuario);
         $window.location.href='#/tab/main';
@@ -70,23 +70,15 @@ angular.module('pickplace', [
       controller: 'UsuarioCtrl'
     })
 
-    // .state('preferencia', {
-    //   url: '/preferencia',
-    //   views: {
-    //     'menuContent': {
-    //       templateUrl: 'templates/profile.html',
-    //       controller: 'ProfileCtrl'
-    //     },
-    //     'fabContent': {
-    //       template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
-    //       controller: function ($timeout) {
-    //         //  $timeout(function () {
-    //         //    document.getElementById('fab-profile').classList.toggle('on');
-    //         //  }, 800);
-    //       }
-    //     }
-    //   }
-    // })
+    .state('preferencia', {
+      url: '/preferencia',
+
+          templateUrl: 'templates/preferencias.html',
+          controller: 'PreferenciaCtrl'
+
+
+
+    })
 
     .state('tab.main', {
       url: '/main',

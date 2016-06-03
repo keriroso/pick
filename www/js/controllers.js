@@ -42,12 +42,12 @@ Funcion de inicio de sesion
         console.log(data);
         $scope.isLoading = false;
         $rootScope.usuario=data;
-        // if(window.localStorage.getItem('Preferencia')==true){
-        // $state.go('tab.main');
-        // }else{
-        // $state.go('preferencia');
-        // }
+        console.log(window.localStorage.getItem('Preferencia'));
+        if(window.localStorage.getItem('Preferencia')==''){
+        $state.go('preferencia');
+        }else{
         $state.go('tab.main');
+        }
         console.log($scope.usuario);
       }).catch(function(data) {
         $scope.showAlertas('Error',data);
@@ -248,6 +248,39 @@ Funcion de inicio de sesion
       console.log('Thank you for not eating my delicious ice cream cone');
     });
   };
+})
+
+.controller('PreferenciaCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+  // Set Header
+  // $scope.$parent.showHeader();
+  // $scope.$parent.clearFabs();
+  // $scope.isExpanded = true;
+  // $scope.$parent.setExpanded(false);
+  // $scope.$parent.setHeaderFab(false);
+  // Set Motion
+  $timeout(function() {
+    ionicMaterialMotion.slideUp({
+      selector: '.slide-up'
+    });
+  }, 300);
+
+  $timeout(function() {
+    ionicMaterialMotion.fadeSlideInRight({
+      startVelocity: 3000
+    });
+  }, 700);
+
+  // Set Ink
+  ionicMaterialInk.displayEffect();
+
+$scope.SavePreferens = function(selected,valor){
+  console.log(selected);
+  if ($scope.valor === "active")
+     $scope.class = "no-active";
+   else
+     $scope.class = "active";
+
+};
 })
 .controller('MainCtrl', function($scope, $state) {
   /*$scope.eventos = [];

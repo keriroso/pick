@@ -29,6 +29,7 @@ angular.module('ionMdInput', [])
       angular.forEach({
         'name': attr.name,
         'type': attr.type,
+        'tab-index' :attr.tab-index,
         'ng-value': attr.ngValue,
         'ng-model': attr.ngModel,
         'required': attr.required,

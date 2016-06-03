@@ -1,0 +1,85 @@
+/* General
+==================================*/
+body{
+  font-family: 'Jaldi', sans-serif!important;
+}
+.height{
+  height: 100%!important;
+}
+input {
+  color: #FFF;
+  letter-spacing: 0.10rem;
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+  background-color: transparent;
+  bottom: 0px;
+}
+h1 {
+  color: #fff;
+  text-shadow: 0 1px 0px #000;
+  font-size: 42px;
+}
+.space-none{
+  white-space: initial!important;
+}
+.carrot-b{
+  background: #e67e22!important
+}
+.carrot-c{
+  color: #e67e22!important
+}
+.white-c{
+  color:white!important;
+}
+.border-width{
+  border-width: 0px!important;
+}
+.smoke{
+  color: #ccc!important;
+}
+.texto-grande{
+  text-transform: uppercase;
+}
+.texto-pequeno{
+  text-transform: lowercase;
+}
+.texto-normal{
+  text-transform: inherit;
+}
+.texto-capital{
+  text-transform: capitalize;
+}
+.no-padding{
+  padding: 0;
+}
+.no-margin{
+  margin: 0!important;
+}
+.m-left{
+  margin-left: 5%;
+}
+.both{
+  clear: both;
+}
+.none{
+  float: none;
+}
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.text-center{
+  text-align: center;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.text-justify{
+  text-align: justify;
+}
