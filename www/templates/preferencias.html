@@ -1,7 +1,7 @@
 <ion-view view-title="Preferencia">
     <ion-content  overflow-scroll=true scroll=true  ng-class="{expanded:$scope.isExpanded}">
         <h5 class="content padding double-padding-x">Ayúdanos a crear tu propia experiencia personalizada</h5>
-        <div class="list list-preferencia  animate-fade-slide-in-right">
+        <div class="list list-preferencia  animate-fade-slide-in-right" ng-init='loadEvent(true)'>
           <div  class="item-thumbnail-preferencia " ng-repeat='hola in [1,2,3,4,5,6,7,8,9]'>
             <div ng-class="class" ng-click='SavePreferens(hola)'>
               {{hola}}

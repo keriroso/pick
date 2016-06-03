@@ -10,7 +10,7 @@ angular.module('pickplace', [
       // for form inputs)
 
       if (window.localStorage.getItem("Usuario") != null && window.localStorage.getItem("SessionToken") != null
-      && window.localStorage.getItem("SessionName") != null && window.localStorage.getItem("SessionId") != null && window.localStorage.getItem("Preferencia") != null) {
+      && window.localStorage.getItem("SessionName") != null && window.localStorage.getItem("SessionId") != null) {
         $rootScope.usuario=angular.fromJson(getLocalVariable('Usuario'));
         console.log($rootScope.usuario);
         $window.location.href='#/tab/main';

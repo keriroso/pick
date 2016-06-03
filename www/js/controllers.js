@@ -1,6 +1,7 @@
 /* global angular, document, window */
 'use strict';
 angular.module('pickplace.controllers', ['pickplace.services'])
+
 /*
 INTRO
 Controlador para el intro de pick
@@ -42,11 +43,11 @@ Funcion de inicio de sesion
         console.log(data);
         $scope.isLoading = false;
         $rootScope.usuario=data;
-        console.log(window.localStorage.getItem('Preferencia'));
-        if(window.localStorage.getItem('Preferencia')==''){
-        $state.go('preferencia');
-        }else{
+        console.log(window.localStorage.getItem('preferenciaVista'));
+        if(window.localStorage.getItem('preferenciaVista')!=null){
         $state.go('tab.main');
+        }else{
+        $state.go('preferencia');
         }
         console.log($scope.usuario);
       }).catch(function(data) {
@@ -250,13 +251,8 @@ Funcion de inicio de sesion
   };
 })
 
-.controller('PreferenciaCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-  // Set Header
-  // $scope.$parent.showHeader();
-  // $scope.$parent.clearFabs();
-  // $scope.isExpanded = true;
-  // $scope.$parent.setExpanded(false);
-  // $scope.$parent.setHeaderFab(false);
+.controller('PreferenciaCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferencias) {
+
   // Set Motion
   $timeout(function() {
     ionicMaterialMotion.slideUp({
@@ -281,6 +277,23 @@ $scope.SavePreferens = function(selected,valor){
      $scope.class = "active";
 
 };
+  $scope.list_preferens = [];
+  $scope.isLoading = true;
+
+  $scope.loadEvent = function (forceLoading){
+    $scope.isLoading = true;
+
+    if (forceLoading === undefined){
+      forceLoading = false;
+    }
+
+    Preferencias.getList(forceLoading).then(function(data){
+      $scope.isLoading = false;
+      $scope.list_preferens = data;
+      console.log(data);
+    });
+
+  };
 })
 .controller('MainCtrl', function($scope, $state) {
   /*$scope.eventos = [];
