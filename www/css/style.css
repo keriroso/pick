@@ -15,7 +15,7 @@ input {
   background-color: transparent;
   bottom: 0px; }
 
-h1 { 
+h1 {
   color: #fff;
   text-shadow: 0 1px 0px #000;
   font-size: 42px; }
@@ -117,10 +117,13 @@ p {
   -webkit-flex-direction: row; }
 
 .item-thumbnail-preferencia {
-  padding: 15%;
-  border-top: 1px solid #e74c3c;
-  border-left: 1px solid #e74c3c;
-  border-bottom: 1px solid #e74c3c; }
+  padding: 5%;
+  margin: 1%;
+  border: 1px solid #e74c3c;
+  text-align: center; }
+
+.font-icon {
+  font-size: 2em; }
 
 span.back-text {
   display: none !important; }
@@ -136,7 +139,8 @@ span.back-text {
   height: 100%;
   position: absolute;
   background: rgba(0, 0, 0, 0.65);
-  width: 100%; }
+  width: 100%;
+  overflow: scroll; }
 
 /* Login
 ==================================*/
@@ -154,9 +158,6 @@ span.back-text {
 
 .item {
   width: auto; }
-
-.hero.no-header {
-  height: 288px; }
 
 .social-login {
   position: fixed;

@@ -1,6 +1,6 @@
 /* global angular, document, window */
 'use strict';
-angular.module('pickplace.controllers', ['pickplace.services'])
+angular.module('pickplace.controllers', ['pickplace.services','angular.filter'])
 
 /*
 INTRO

@@ -15,12 +15,15 @@ top: 0;
   -webkit-flex-direction:row;
 }
 .item-thumbnail-preferencia{
-  padding: 15%;
-  border-top: 1px solid #e74c3c;
-  border-left: 1px solid #e74c3c;
-  border-bottom: 1px solid #e74c3c;
-}
+  padding: 5%;
+  margin: 1%;
 
+  border: 1px solid #e74c3c;
+  text-align: center;
+}
+.font-icon{
+  font-size: 2em;
+}
 span.back-text {
     display: none!important;
 }
@@ -36,5 +39,5 @@ span.back-text {
   position: absolute;
   background: rgba(0,0,0,0.65);
   width: 100%;
-
+overflow: scroll;
 }

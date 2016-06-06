@@ -93,7 +93,7 @@ angular.module('pickplace.services', [])
     if (forceLoading){
       // Llama al webservice para obtener la lista de preferencias
 
-      $http.get(WebservicesURL + '/rest/ws_preferencias.json').
+      $http.get(WebservicesURL + '/rest/ws_preferencia_usuario.json').
       then(function(response) {
         if (response.data.length > 0) {
           setLocalVariable('preferencias', angular.toJson(response.data));

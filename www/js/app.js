@@ -72,12 +72,8 @@ angular.module('pickplace', [
 
     .state('preferencia', {
       url: '/preferencia',
-
-          templateUrl: 'templates/preferencias.html',
-          controller: 'PreferenciaCtrl'
-
-
-
+      templateUrl: 'templates/preferencias.html',
+      controller: 'PreferenciaCtrl'
     })
 
     .state('tab.main', {

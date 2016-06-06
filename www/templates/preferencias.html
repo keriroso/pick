@@ -1,39 +1,24 @@
-<ion-view view-title="Preferencia">
+    <button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-checkmark"></i></button><ion-view view-title="Preferencia">
     <ion-content  overflow-scroll=true scroll=true  ng-class="{expanded:$scope.isExpanded}">
         <h5 class="content padding double-padding-x">Ayúdanos a crear tu propia experiencia personalizada</h5>
-        <div class="list list-preferencia  animate-fade-slide-in-right" ng-init='loadEvent(true)'>
-          <div  class="item-thumbnail-preferencia " ng-repeat='hola in [1,2,3,4,5,6,7,8,9]'>
-            <div ng-class="class" ng-click='SavePreferens(hola)'>
-              {{hola}}
+        <div class="" ng-init='loadEvent(true)'>
+          <div class='animate-fade-slide-in-righ padding'  ng-repeat="(key, value) in list_preferens | groupBy: 'Categoria'">
+            <p>
+              {{key}}
+            </p>
+            <div class="list-preferencia">
+              <div  class=" item-thumbnail-preferencia" ng-repeat="list_preferens in value">
+                <div ng-class="class" ng-click='SavePreferens(list_preferens.pid)'>
+                  <i class="{{list_preferens.clase}} font-icon"></i>
+                  <p class="no-margin">
+                    {{list_preferens.Preferencia}}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="list list-preferencia  animate-fade-slide-in-right">
-          <div class=" item-thumbnail-preferencia" ng-repeat='hola in [1,2,3,4,5,6,7,8,9]'>
-            {{hola}}
-          </div>
-        </div>
-        <div class="list list-preferencia  animate-fade-slide-in-right">
-          <div class=" item-thumbnail-preferencia" ng-repeat='hola in [1,2,3,4,5,6,7,8,9]'>
-            {{hola}}
-          </div>
-        </div>
-        <div class="list list-preferencia  animate-fade-slide-in-right">
-          <div class=" item-thumbnail-preferencia" ng-repeat='hola in [1,2,3,4,5,6,7,8,9]'>
-            {{hola}}
-          </div>
-        </div>
-        <div class="list list-preferencia  animate-fade-slide-in-right">
-          <div class=" item-thumbnail-preferencia" ng-repeat='hola in [1,2,3,4,5,6,7,8,9]'>
-            {{hola}}
-          </div>
-        </div>
-        <div class="list list-preferencia  animate-fade-slide-in-right">
-          <div class=" item-thumbnail-preferencia" ng-repeat='hola in [1,2,3,4,5,6,7,8,9]'>
-            {{hola}}
-          </div>
-        </div>
     </ion-content>
-    <button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-checkmark"></i></button>
+
 
 </ion-view>
