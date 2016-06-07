@@ -73,6 +73,8 @@ h1 {
 }
 .text-center{
   text-align: center;
+  text-align:  -webkit-center;
+  text-align: -moz-center;
 }
 .text-left{
   text-align: left;
