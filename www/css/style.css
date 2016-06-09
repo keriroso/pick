@@ -18,8 +18,8 @@
 
 /* General
 ==================================*/
-body {
-  font-family: "Jaldi", sans-serif !important; }
+* {
+  font-family: Quicksand !important; }
 
 .height {
   height: 100% !important; }
@@ -178,6 +178,9 @@ span.back-text {
 
 .item {
   width: auto; }
+
+.content-login {
+  margin-top: 15%; }
 
 .social-login {
   position: fixed;
