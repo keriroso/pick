@@ -1,4 +1,8 @@
-    <button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-checkmark"></i></button><ion-view view-title="Preferencia">
+<ion-view hide-back-button="true" view-title="Preferencia">
+  <ion-nav-buttons side="right">
+    <button class="button button-clear "><i class="icon ion-ios-checkmark-empty"></i></button>
+  </button>
+  </ion-nav-buttons>
     <ion-content  overflow-scroll=true scroll=true  ng-class="{expanded:$scope.isExpanded}">
         <h5 class="content padding double-padding-x">Ayúdanos a crear tu propia experiencia personalizada</h5>
         <div class="" ng-init='loadEvent(true)'>
@@ -19,6 +23,6 @@
           </div>
         </div>
     </ion-content>
-
+    <!-- <button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-checkmark"></i></button> -->
 
 </ion-view>

@@ -6,7 +6,7 @@ angular.module('pickplace.services', [])
 
   this.getSession = function(Cargar,user1,pass) {
     var defer = $q.defer();
-    var InicioSession = parseInt(getLocalVariable('Usuario') );
+    var InicioSession = parseInt(getLocalVariable('lastLoading') );
     console.log(InicioSession);
     // Si no hay un valor anterior, asumir que es cero
     if (isNaN(InicioSession)){
@@ -40,6 +40,7 @@ angular.module('pickplace.services', [])
     }else {
       this.UserSession = angular.fromJson(getLocalVariable('Usuario'));
       defer.resolve(this.UserSession);
+      console.log(this.UserSession);
     }
 
 

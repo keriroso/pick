@@ -44,11 +44,11 @@ Funcion de inicio de sesion
         $scope.isLoading = false;
         $rootScope.usuario=data;
         console.log(window.localStorage.getItem('preferenciaVista'));
-        if(window.localStorage.getItem('preferenciaVista')!=null){
-        $state.go('tab.main');
-        }else{
-        $state.go('preferencia');
-        }
+        // if(window.localStorage.getItem('preferenciaVista')!=null){
+        // $state.go('tab.main');
+        // }else{
+        // $state.go('preferencia');
+        // }
         console.log($scope.usuario);
       }).catch(function(data) {
         $scope.showAlertas('Error',data);
@@ -61,13 +61,20 @@ Funcion de inicio de sesion
   };
   $scope.EliminarSession = function(cargar) {
     $scope.isLoading = true;
+    var token=localStorage.getItem('SessionToken');
     if(cargar){
       user_logout({
         success:function(result){
           if (result[0]) {
             alert("Logged out!");
           }
+          console.log('ENTRO');
         }
+        ,error:function(xhr,status,message){
+          console.log(xhr);
+        }
+
+
       });
       localStorage.removeItem("Usuario");
       localStorage.removeItem("SessionId");
