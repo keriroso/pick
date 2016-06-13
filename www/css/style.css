@@ -38,6 +38,9 @@ h1 {
   text-shadow: 0 1px 0px #000;
   font-size: 42px; }
 
+.underline {
+  text-decoration: underline; }
+
 .space-none {
   white-space: initial !important; }
 
@@ -70,6 +73,12 @@ h1 {
 
 .no-padding {
   padding: 0; }
+
+.rem {
+  font-size: 1rem; }
+
+.line-height-normal {
+  line-height: 25px !important; }
 
 .no-margin {
   margin: 0 !important; }
@@ -161,6 +170,13 @@ span.back-text {
   background: rgba(0, 0, 0, 0.65);
   width: 100%;
   overflow: scroll; }
+
+.class_active {
+  background: #e74c3c;
+  color: white; }
+
+.padding-preferencia {
+  padding: 10px !important; }
 
 /* Login
 ==================================*/

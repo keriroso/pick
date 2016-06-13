@@ -45,9 +45,9 @@ Funcion de inicio de sesion
         $rootScope.usuario=data;
         console.log(window.localStorage.getItem('preferenciaVista'));
         if(window.localStorage.getItem('preferenciaVista')!=null){
-        $state.go('tab.main');
+          $state.go('tab.main');
         }else{
-        $state.go('preferencia');
+          $state.go('preferencia');
         }
         console.log($scope.usuario);
       }).catch(function(data) {
@@ -116,7 +116,7 @@ Funcion de inicio de sesion
         if(!angular.isUndefined($scope.msgError.form_errors.pass)){
           pass='<ion-item class="space-none">'+$scope.msgError.form_errors.pass+'</ion-item>';
         }
-              $scope.msg='<ion-list>'+name+mail+pass+'</ion-list>';
+        $scope.msg='<ion-list>'+name+mail+pass+'</ion-list>';
         console.log($scope.msgError.form_errors.name);
         console.log($scope.msgError.form_errors.mail);
         console.log($scope.msgError.form_errors.pass);
@@ -182,7 +182,7 @@ Funcion de inicio de sesion
       buttons: [
         { text: 'OK',
         type:'button-assertive',
-        }
+      }
     ]
   });
   alertPopup.then(function(res) {
@@ -276,14 +276,86 @@ Funcion de inicio de sesion
   // Set Ink
   ionicMaterialInk.displayEffect();
 
-$scope.SavePreferens = function(selected,valor){
-  console.log(selected);
-  if ($scope.valor === "active")
-     $scope.class = "no-active";
-   else
-     $scope.class = "active";
+  // Item List Arrays
+  $scope.PreferenciasSelected = [];
+  $scope.GuardarPreferencias = function (valorpid,valorcid) {
+    //Validación  del tamaño del arreglo
+    console.log($scope.PreferenciasSelected.length);
+    if($scope.PreferenciasSelected.length > 0){
+      //Validación  si el item ya se encuentra en el arreglo
+      if($scope.containsObject(valorpid)){
+        //Agregar item
+        $scope.PreferenciasSelected.push({
+          pid: valorpid,
+          cid: valorcid
+        });
+        console.log($scope.PreferenciasSelected);
 
-};
+      }else {
+        // Eliminar item
+        for(var i = 0; i < $scope.PreferenciasSelected.length; i++) {
+          var obj = $scope.PreferenciasSelected[i];
+          if(valorpid == obj.pid) {
+            $scope.PreferenciasSelected.splice(i, 1);
+          }
+        }
+      }
+    }else{
+      //Agregar item si esta vacio el arreglo
+      $scope.PreferenciasSelected.push({
+        pid: valorpid,
+        cid: valorcid
+      });
+      console.log($scope.PreferenciasSelected);
+    }
+  };
+  $scope.containsObject= function(valor) {
+    $scope.indexDelete='';
+    var i;
+    for (i = 0; i < $scope.PreferenciasSelected.length; i++) {
+      if($scope.PreferenciasSelected[i].pid == valor){
+        return false;
+      }
+    }
+    return true;
+  };
+  $scope.ConsultarPreferencia = function(valor){
+    var i;
+    for (i = 0; i < $scope.PreferenciasSelected.length; i++) {
+      if($scope.PreferenciasSelected[i].pid == valor){
+        return true;
+      }
+    }
+    return false;
+  };
+  // if($scope.PreferenciasSelected.length > 0){
+  //   var eliminado =false;
+  //   angular.forEach($scope.PreferenciasSelected,function(key,value){
+  //      var index = $scope.PreferenciasSelected[value].pid.indexOf(selected);
+  //      console.log(index);
+  //     if ($scope.PreferenciasSelected[value].pid.indexOf(selected)!= -1){
+  //       $scope.PreferenciasSelected.splice(index, 1);
+  //       console.log('eliminado');
+  //        eliminado = true;
+  //        $scope.class = false;
+  //
+  //      }
+  //   });
+  //   if (eliminado!=true){
+  //     $scope.PreferenciasSelected.push({pid:selected});
+  //     console.log('agregado');
+  //     $scope.class = true;
+  //
+  //   }
+  //
+  // }else {
+  //   $scope.PreferenciasSelected.push({pid:selected});
+  // }
+  // console.log($scope.PreferenciasSelected);
+
+
+
+  // };
   $scope.list_preferens = [];
   $scope.isLoading = true;
 
