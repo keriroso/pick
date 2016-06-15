@@ -9,8 +9,16 @@
       <div class="list">
         <p class="white-c text-center bold">Descubre los misterios</p>
       </div>
+      
       <div class="padding content-login">
-        <button class="button button-full button-border icon-left ion-social-facebook social-login-facebook ink texto-normal bold">Iniciar con facebook</button>
+        <div ng-controller='FacebookCtrl'>
+          <button
+                class="button button-full button-border icon-left ion-social-facebook social-login-facebook ink texto-normal bold"
+                ng-click='loginToggle()'
+                >
+          Iniciar con facebook</button>
+        </div>
+        
         <div class="button-bar ">
           <button ng-click='LoginApp()' class="button button-full button white-c carrot-b  texto-normal ink bold">Iniciar sesion</button>
           <button class="button button-full button-border icon-left button-assertive texto-normal bold" ng-click='RegisterApp()'>Registrarse</button>
