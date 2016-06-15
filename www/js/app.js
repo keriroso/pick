@@ -3,7 +3,9 @@ angular.module('pickplace', [
   'ionic',
   'pickplace.controllers',
   'pickplace.services',
-  'ionic-material'])
+  'ionic-material',
+  'ngFacebook',
+  'pickplace.loginfb'])
   .run(function($ionicPlatform,$window,$rootScope) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,11 +25,38 @@ angular.module('pickplace', [
         StatusBar.styleDefault();
       }
     });
+    
+    // Agregar SDK para login con Facebook
+    (function(d){
+      // load the Facebook javascript SDK
+  
+      var js,
+      id = 'facebook-jssdk',
+      ref = d.getElementsByTagName('script')[0];
+  
+      if (d.getElementById(id)) {
+        return;
+      }
+  
+      js = d.createElement('script');
+      js.id = id;
+      js.async = true;
+      //js.src = "//connect.facebook.net/en_US/all.js";
+      
+      // ultima version:
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+  
+      ref.parentNode.insertBefore(js, ref);
+  
+    }(document));
+    // FIN - Agregar SDK para login con Facebook
 
 
 
   })
-  .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$httpProvider) {
+  
+  
+  .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$httpProvider, $facebookProvider) {
 
     Drupal.settings.site_path = "http://dev-pick-backend.pantheonsite.io";
     console.log(Drupal.settings.site_path);
@@ -96,4 +125,15 @@ angular.module('pickplace', [
 
     ;
 
-    $urlRouterProvider.otherwise("/");});
+    $urlRouterProvider.otherwise("/");
+    
+    // Configuraion para FB
+    $facebookProvider.setAppId(1699914346942119);
+    $facebookProvider.setPermissions("email,user_likes,public_profile");
+    
+    })
+  
+  ;
+  
+  
+  
