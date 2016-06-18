@@ -5,7 +5,8 @@ angular.module('pickplace', [
   'pickplace.services',
   'ionic-material',
   'ngFacebook',
-  'pickplace.loginfb'])
+  'pickplace.loginfb',
+  'pickplace.geolocation'])
   .run(function($ionicPlatform,$window,$rootScope) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -122,8 +123,22 @@ angular.module('pickplace', [
         }
       }
     })
+    
+    // pagina de pruebas tecnologicas e investigacion
+    .state('pruebas', {
+      url: '/pruebas',
+      templateUrl: 'templates/pruebas.html',
+      //controller: 'geolocCtrl',
+    })
+    // pagina de pruebas tecnologicas e investigacion - END
 
     ;
+    
+    //$urlRouterProvider.when('/pruebas-investigacion', {
+    //  templateUrl: "templates/pruebas-investigacion.html",
+    //  //controller: "Pagina1Controller"
+    //});
+    
 
     $urlRouterProvider.otherwise("/");
     

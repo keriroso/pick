@@ -1,0 +1,18 @@
+<ion-view view-title="Pruebas"  align-title="left">
+  <ion-content overflow-scroll=true scroll=true >
+    <div class="list padding">
+      <div class="list texto-grande padding" ng-init="getCurrentPosition()">
+        Pruebas de geo localizacion
+      </div>
+      <div class="" >
+        <button
+                ng-controller='geolocCtrl'
+                class="button button-full button-assertive height no-margin ink"
+                ng-click='obtenerActualPosicion()'>
+          Obtener GPS
+        </button>
+      </div>
+    </div>
+    <ion-spinner class="spinner-energized app-loading" ng-show='isLoading' icon='ripple'></ion-spinner>
+  </ion-content>
+</ion-view>
