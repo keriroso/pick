@@ -1,0 +1,5 @@
+# archivos generados por MacOS
+.DS_Store
+
+# escriba los archivos a ignorar en repositorio
+# *.ext -> ignora todos los archivo con extrension ext
