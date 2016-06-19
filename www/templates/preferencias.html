@@ -1,6 +1,6 @@
 <ion-view hide-back-button="true" view-title="Preferencia">
   <ion-nav-buttons side="right">
-    <button class="button button-clear "><i class="icon ion-ios-checkmark-empty"></i></button>
+    <button  ng-controller='UsuarioCtrl' class="button button-clear" ng-click='userUpdate(PreferenciasSelected);'><i class="icon ion-ios-checkmark-empty"></i></button>
   </button>
   </ion-nav-buttons>
     <ion-content  overflow-scroll=true scroll=true  ng-class="{expanded:$scope.isExpanded}">
@@ -22,6 +22,7 @@
             </div>
           </div>
         </div>
+        <ion-spinner class="spinner-energized app-loading" ng-show='isLoading' icon='ripple'></ion-spinner>
     </ion-content>
     <!-- <button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-checkmark"></i></button> -->
 

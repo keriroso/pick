@@ -6,7 +6,7 @@ angular.module('pickplace.services', [])
 
   this.getSession = function(Cargar,user1,pass) {
     var defer = $q.defer();
-    var InicioSession = parseInt(getLocalVariable('lastLoading') );
+    var InicioSession = parseInt(getLocalVariable('Usuario') );
     console.log(InicioSession);
     // Si no hay un valor anterior, asumir que es cero
     if (isNaN(InicioSession)){
@@ -73,7 +73,7 @@ angular.module('pickplace.services', [])
   this.getList = function(forceLoading) {
     var defer = $q.defer();
 
-    var lastLoading = parseInt( getLocalVariable('lastLoading') );
+    var lastLoading = parseInt( getLocalVariable('lastLoading1') );
     // Si no hay un valor anterior, asumir que es cero
     if (isNaN(lastLoading)){
       lastLoading = 0;
@@ -98,7 +98,7 @@ angular.module('pickplace.services', [])
       then(function(response) {
         if (response.data.length > 0) {
           setLocalVariable('preferencias', angular.toJson(response.data));
-          setLocalVariable('lastLoading', currentTime);
+          setLocalVariable('lastLoading1', currentTime);
           this.eventsList = response.data;
           defer.resolve(response.data);
         }

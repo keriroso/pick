@@ -29,12 +29,15 @@ angular.module('pickplace', [
   })
   .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$httpProvider) {
 
-    Drupal.settings.site_path = "http://dev-pick-backend.pantheonsite.io";
+     Drupal.settings.site_path = "http://dev-pick-backend.pantheonsite.io";
+    //Drupal.settings.site_path = "http://devel.local/pick-backend";
+
     console.log(Drupal.settings.site_path);
     // Set the Service Resource endpoint path.
     Drupal.settings.endpoint = "rest";
     // Set to true to enable local storage caching for entities.
     Drupal.settings.cache.entity.enabled = true;
+    Drupal.settings.debug=true;
     // Number of seconds before cached copy expires. Set to 0 to cache forever, set
     // to 60 for one minute, etc.
     Drupal.settings.cache.entity.expiration = 60*60*24;

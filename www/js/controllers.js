@@ -62,16 +62,21 @@ Funcion de inicio de sesion
   $scope.EliminarSession = function(cargar) {
     $scope.isLoading = true;
     var token=localStorage.getItem('SessionToken');
+    var options= {
+      uid:$rootScope.usuario.uid,
+      'X-CSRF-Token' : token,
+    }
     if(cargar){
-      user_logout({
+      user_logout(options,{
         success:function(result){
+          console.log(result);
           if (result[0]) {
-            alert("Logged out!");
+            console.log("Logged out!");
           }
-          console.log('ENTRO');
         }
         ,error:function(xhr,status,message){
           console.log(xhr);
+          console.log(message);
         }
 
 
@@ -91,8 +96,7 @@ Funcion de inicio de sesion
     var account = {
       name:nombre,
       mail:correo,
-      pass:clave,
-      field_prueba:'prueba'
+      pass:clave
     };
     user_save(account,{
       success:function(result) {
@@ -125,6 +129,29 @@ Funcion de inicio de sesion
         $scope.showAlertas('Formulario',$scope.msg);
       }
     });
+  };
+  $scope.userUpdate= function(und){
+    var token=angular.fromJson(localStorage.getItem('SessionToken'));
+    console.log(und);
+    var session_name= angular.fromJson(localStorage.getItem("SessionName"));
+    var sessid = angular.fromJson(localStorage.getItem("SessionId"));
+
+    var account = {
+      uid:$rootScope.usuario.uid,
+      field_preferencias:und,
+    };
+    console.log(account);
+    user_save(account,{
+      success:function(result) {
+        console.log('Edit user #' + result);
+      },
+      error:function(xhr,status,message){
+        console.log(xhr);
+        console.log(message);
+      }
+    });
+
+
   };
   $scope.requestPassword=function(valor){
     $scope.isLoading = true;
@@ -286,8 +313,8 @@ Funcion de inicio de sesion
       if($scope.containsObject(valorpid)){
         //Agregar item
         $scope.PreferenciasSelected.push({
-          pid: valorpid,
-          cid: valorcid
+          target_id: valorpid,
+          // cid: valorcid
         });
         console.log($scope.PreferenciasSelected);
 
@@ -295,7 +322,7 @@ Funcion de inicio de sesion
         // Eliminar item
         for(var i = 0; i < $scope.PreferenciasSelected.length; i++) {
           var obj = $scope.PreferenciasSelected[i];
-          if(valorpid == obj.pid) {
+          if(valorpid == obj.target_id) {
             $scope.PreferenciasSelected.splice(i, 1);
           }
         }
@@ -303,8 +330,8 @@ Funcion de inicio de sesion
     }else{
       //Agregar item si esta vacio el arreglo
       $scope.PreferenciasSelected.push({
-        pid: valorpid,
-        cid: valorcid
+        target_id: valorpid,
+        // cid: valorcid
       });
       console.log($scope.PreferenciasSelected);
     }
@@ -313,7 +340,7 @@ Funcion de inicio de sesion
     $scope.indexDelete='';
     var i;
     for (i = 0; i < $scope.PreferenciasSelected.length; i++) {
-      if($scope.PreferenciasSelected[i].pid == valor){
+      if($scope.PreferenciasSelected[i].target_id == valor){
         return false;
       }
     }
@@ -322,40 +349,12 @@ Funcion de inicio de sesion
   $scope.ConsultarPreferencia = function(valor){
     var i;
     for (i = 0; i < $scope.PreferenciasSelected.length; i++) {
-      if($scope.PreferenciasSelected[i].pid == valor){
+      if($scope.PreferenciasSelected[i].target_id == valor){
         return true;
       }
     }
     return false;
   };
-  // if($scope.PreferenciasSelected.length > 0){
-  //   var eliminado =false;
-  //   angular.forEach($scope.PreferenciasSelected,function(key,value){
-  //      var index = $scope.PreferenciasSelected[value].pid.indexOf(selected);
-  //      console.log(index);
-  //     if ($scope.PreferenciasSelected[value].pid.indexOf(selected)!= -1){
-  //       $scope.PreferenciasSelected.splice(index, 1);
-  //       console.log('eliminado');
-  //        eliminado = true;
-  //        $scope.class = false;
-  //
-  //      }
-  //   });
-  //   if (eliminado!=true){
-  //     $scope.PreferenciasSelected.push({pid:selected});
-  //     console.log('agregado');
-  //     $scope.class = true;
-  //
-  //   }
-  //
-  // }else {
-  //   $scope.PreferenciasSelected.push({pid:selected});
-  // }
-  // console.log($scope.PreferenciasSelected);
-
-
-
-  // };
   $scope.list_preferens = [];
   $scope.isLoading = true;
 
@@ -367,9 +366,9 @@ Funcion de inicio de sesion
     }
 
     Preferencias.getList(forceLoading).then(function(data){
-      $scope.isLoading = false;
       $scope.list_preferens = data;
       console.log(data);
+      $scope.isLoading = false;
     });
 
   };

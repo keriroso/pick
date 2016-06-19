@@ -1486,7 +1486,7 @@ Drupal.services.call = function(options) {
     // Build the Request, URL and extract the HTTP method.
     var request = new XMLHttpRequest();
     var url = Drupal.settings.site_path +
-              Drupal.settings.base_path + '?q=';
+              Drupal.settings.base_path;
     // Use an endpoint, unless someone passed in an empty string.
     if (typeof options.endpoint === 'undefined') {
       url += Drupal.settings.endpoint + '/';
@@ -2005,9 +2005,11 @@ function entity_retrieve(entity_type, ids, options) {
  */
 function entity_update(entity_type, bundle, entity, options) {
   try {
+    console.log(entity_type + '/' + entity[primary_key] + '.json');
     var entity_wrapper = _entity_wrap(entity_type, entity);
     var primary_key = entity_primary_key(entity_type);
     var data = JSON.stringify(entity_wrapper);
+    console.log(entity_type + '/' + entity[primary_key] + '.json');
     Drupal.services.call({
         method: 'PUT',
         path: entity_type + '/' + entity[primary_key] + '.json',
@@ -2881,4 +2883,3 @@ function user_request_new_password(name, options) {
   }
   catch (error) { console.log('user_request_new_password - ' + error); }
 }
-
