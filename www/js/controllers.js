@@ -136,15 +136,17 @@ Funcion de inicio de sesion
     
     var preferencias_array = [];
     
-    preferencias_array.und = [];
+    var item_language = [];
     
-    
-    var i = 0;
     angular.forEach(und,function(value){
       var item = [];
       item.target_id = value;
-      preferencias_array.und.push(item);
+      //preferencias_array.und.push(item);
+      item_language.push(item);
     });
+    
+    preferencias_array.push(item_language);
+    
     console.log('preferencias_array : ', preferencias_array);
     
     // OLD CODE:
