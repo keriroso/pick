@@ -178,8 +178,8 @@ Funcion de inicio de sesion
     
     var account = {
       uid:$rootScope.usuario.uid,
-      //field_preferencias: preferencias_array,
-      name:'Jose',
+      field_preferencias: preferencias_array,
+      //name:'Jose',
       // Approach string tid to BackEnd
       //field_preferencias:$scope.field_preferencias.toString(),
     };
