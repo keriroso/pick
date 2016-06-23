@@ -133,25 +133,36 @@ Funcion de inicio de sesion
   $scope.userUpdate= function(und){
     var token=angular.fromJson(localStorage.getItem('SessionToken'));
     console.log(und);
+    // $scope.und=[];
+    // $scope.field_preferencias=[$scope.und];
+    $scope.field_preferencias=[];
+    console.log($scope.field_preferencias.toString());
     var session_name= angular.fromJson(localStorage.getItem("SessionName"));
     var sessid = angular.fromJson(localStorage.getItem("SessionId"));
-
+    angular.forEach(und,function(key,value){
+      // var text = 'target_id'+'='+key.target_id;
+      $scope.field_preferencias.push(key.target_id);
+      // var dict = new Array();
+      // var keyValuePair = text.replace(/ /g,'').split('=');
+      // dict[keyValuePair[0]] = keyValuePair[1];
+      // console.log(dict);
+      // $scope.und.push(dict);
+    })
+    console.log($scope.field_preferencias.toString());
     var account = {
       uid:$rootScope.usuario.uid,
-      field_preferencias:und,
+      field_preferencias:$scope.field_preferencias.toString(),
     };
     console.log(account);
     user_save(account,{
       success:function(result) {
-        console.log('Edit user #' + result);
+        console.log('Edit user #' + JSON.parse(result));
       },
       error:function(xhr,status,message){
         console.log(xhr);
         console.log(message);
       }
     });
-
-
   };
   $scope.requestPassword=function(valor){
     $scope.isLoading = true;
@@ -164,7 +175,6 @@ Funcion de inicio de sesion
             $scope.closeModal();
           }
         }
-
       });
     }else {
       $scope.showAlertas('Error','Ingrese un email valído');

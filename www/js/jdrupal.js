@@ -2005,11 +2005,9 @@ function entity_retrieve(entity_type, ids, options) {
  */
 function entity_update(entity_type, bundle, entity, options) {
   try {
-    console.log(entity_type + '/' + entity[primary_key] + '.json');
     var entity_wrapper = _entity_wrap(entity_type, entity);
     var primary_key = entity_primary_key(entity_type);
     var data = JSON.stringify(entity_wrapper);
-    console.log(entity_type + '/' + entity[primary_key] + '.json');
     Drupal.services.call({
         method: 'PUT',
         path: entity_type + '/' + entity[primary_key] + '.json',
