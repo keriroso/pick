@@ -144,6 +144,10 @@ Funcion de inicio de sesion
       //preferencias_array.und.push(item);
       item_language.push(item);
     });
+    // TEST JSON MANUAl
+    var new_preferencias = {"und":{"0":{"target_id":"113"}}};
+    console.log("new_preferencias" , new_preferencias );
+    // TEST JSON MANUAl  - END
     
     preferencias_array.push(item_language);
     
@@ -178,7 +182,7 @@ Funcion de inicio de sesion
     
     var account = {
       uid:$rootScope.usuario.uid,
-      field_preferencias: preferencias_array,
+      field_preferencias: new_preferencias,
       //name:'Jose',
       // Approach string tid to BackEnd
       //field_preferencias:$scope.field_preferencias.toString(),
