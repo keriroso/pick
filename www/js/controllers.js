@@ -81,7 +81,7 @@ Funcion de inicio de sesion
       localStorage.removeItem("SessionId");
       localStorage.removeItem("SessionName");
       localStorage.removeItem("SessionToken");
-      setLocalVariable("Usuario",null);
+      setLocalVariable("User",null);
       $scope.isLoading = false;
       $window.location.href='#/inicio';
     }
@@ -123,30 +123,73 @@ Funcion de inicio de sesion
       }
     });
   };
+  
+  /*
+   *  Usuario - Edicion
+   */
   $scope.userUpdate= function(und){
-    var token=angular.fromJson(localStorage.getItem('SessionToken'));
-    console.log(und);
-    // $scope.und=[];
-    // $scope.field_preferencias=[$scope.und];
-    $scope.field_preferencias=[];
     var session_name= angular.fromJson(localStorage.getItem("SessionName"));
     var sessid = angular.fromJson(localStorage.getItem("SessionId"));
-    angular.forEach(und,function(key,value){
-      // var text = 'target_id'+'='+key.target_id;
-      $scope.field_preferencias.push(key.target_id);
-      // var dict = new Array();
-      // var keyValuePair = text.replace(/ /g,'').split('=');
-      // dict[keyValuePair[0]] = keyValuePair[1];
-      // console.log(dict);
-      // $scope.und.push(dict);
-    })
-    console.log($scope.field_preferencias.toString());
+    
+    var token=angular.fromJson(localStorage.getItem('SessionToken'));
+    console.log('UND object : ', und);
+    
+    var preferencias_array = [];
+    
+    preferencias_array.und = [];
+    
+    
+    var i = 0;
+    angular.forEach(und,function(value){
+      var item = [];
+      item.target_id = value;
+      preferencias_array.und.push(item);
+    });
+    console.log('preferencias_array : ', preferencias_array);
+    
+    // OLD CODE:
+    //var items = [];
+    //Object.keys(und).forEach(function(key) {
+    //  var object_item = und[key];
+    //  var items_target = [];
+    //  Object.keys(object_item).forEach(function(key_item) {
+    //    items_target.push({key: key_item, value: object_item[key_item]});
+    //  });
+    //  items.push({key: 'und', value: items_target});
+    //  
+    //});
+    //console.log('ITEMS array : ', items);
+    //$scope.field_preferencias = [];
+    //var session_name= angular.fromJson(localStorage.getItem("SessionName"));
+    //var sessid = angular.fromJson(localStorage.getItem("SessionId"));
+    //angular.forEach(und,function(key,value){
+    //  // var text = 'target_id'+'='+key.target_id;
+    //  $scope.field_preferencias.push(key.target_id);
+    //  // var dict = new Array();
+    //  // var keyValuePair = text.replace(/ /g,'').split('=');
+    //  // dict[keyValuePair[0]] = keyValuePair[1];
+    //  // console.log(dict);
+    //  // $scope.und.push(dict);
+    //})
+    
+    //console.log($scope.field_preferencias.toString());
+    
     var account = {
       uid:$rootScope.usuario.uid,
-      field_preferencias:$scope.field_preferencias.toString(),
+      //field_preferencias: preferencias_array,
+      name:'Jose',
+      // Approach string tid to BackEnd
+      //field_preferencias:$scope.field_preferencias.toString(),
     };
+    
     console.log(account);
-    user_save(account,{
+    // NO VA:
+    //var options = {
+    //  'X-CSRF-Token':token,
+    //};
+    // Enable for edit user
+    //user_update(account, options, {
+    user_save(account, {
       success:function(result) {
         console.log('Edit user #' + JSON.parse(result));
       },
@@ -306,36 +349,64 @@ Funcion de inicio de sesion
 
   // Item List Arrays
   $scope.preferencesSelected = [];
+  
   $scope.SavePreferences = function (valorpid,valorcid) {
-    //Validación  del tamaño del arreglo
-    console.log($scope.preferencesSelected.length);
-    if($scope.preferencesSelected.length > 0){
-      //Validación  si el item ya se encuentra en el arreglo
-      if($scope.containsObject(valorpid)){
-        //Agregar item
-        $scope.preferencesSelected.push({
-          target_id: valorpid,
-          // cid: valorcid
-        });
-        console.log($scope.preferencesSelected);
-      }else {
-        // Eliminar item
-        for(var i = 0; i < $scope.preferencesSelected.length; i++) {
-          var obj = $scope.preferencesSelected[i];
-          if(valorpid == obj.target_id) {
-            $scope.preferencesSelected.splice(i, 1);
-          }
-        }
+    
+    if ($scope.preferencesSelected.indexOf(valorpid) >= 0) {
+        var i = $scope.preferencesSelected.indexOf(valorpid);
+        $scope.preferencesSelected.splice(i, 1);
+          console.log('si está - borrado');
       }
-    }else{
-      //Agregar item si esta vacio el arreglo
-      $scope.preferencesSelected.push({
-        target_id: valorpid,
-        // cid: valorcid
-      });
+      else {
+        console.log('NO está');
+        $scope.preferencesSelected.push(valorpid);
+        
+        
+      }
       console.log($scope.preferencesSelected);
-    }
+      
+      
+    // OLD CODE:
+    ////Validación  del tamaño del arreglo
+    //console.log($scope.preferencesSelected.length);
+    //if($scope.preferencesSelected.length > 0){
+    //  
+    //  
+    //    
+    //    
+    //  //Validación  si el item ya se encuentra en el arreglo
+    //  if($scope.containsObject(valorpid)){
+    //    //Agregar item
+    //    //$scope.preferencesSelected.push({
+    //    //  target_id: valorpid,
+    //    //  // cid: valorcid
+    //    //});
+    //    $scope.preferencesSelected.push(valorpid);
+    //    console.log($scope.preferencesSelected);
+    //  }else {
+    //    // Eliminar item
+    //    
+    //  
+    //    for(var i = 0; i < $scope.preferencesSelected.length; i++) {
+    //      var obj = $scope.preferencesSelected[i];
+    //      console.log('eliminar : ' , obj);
+    //      if(valorpid == obj) {
+    //        $scope.preferencesSelected.splice(i, 1);
+    //      }
+    //    }
+    //  }
+    //}else{
+    //  //Agregar item si esta vacio el arreglo
+    //  //$scope.preferencesSelected.push({
+    //  //  target_id: valorpid,
+    //  //  // cid: valorcid
+    //  //});
+    //  $scope.preferencesSelected.push(valorpid);
+    //  console.log($scope.preferencesSelected);
+    //}
+    // OLD CODE: - END
   };
+  
   $scope.containsObject= function(valor) {
     $scope.indexDelete='';
     var i;
@@ -349,7 +420,8 @@ Funcion de inicio de sesion
   $scope.searchPreferences = function(valor){
     var i;
     for (i = 0; i < $scope.preferencesSelected.length; i++) {
-      if($scope.preferencesSelected[i].target_id == valor){
+      if ($scope.preferencesSelected.indexOf(valor) >= 0) {
+      //if($scope.preferencesSelected[i].target_id == valor){
         return true;
       }
     }
