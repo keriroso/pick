@@ -1,18 +1,18 @@
 angular.module('pickplace.services', [])
 .constant('WebservicesURL','http://dev-pick-backend.pantheonsite.io')
-.service('IniciarSesion', function($q, $http) {
+.service('Login', function($q, $http) {
 
   this.UserSession = [];
 
   this.getSession = function(Cargar,user1,pass) {
     var defer = $q.defer();
-    var InicioSession = parseInt(getLocalVariable('Usuario') );
-    console.log(InicioSession);
+    var Login = parseInt(getLocalVariable('User') );
+    console.log(Login);
     // Si no hay un valor anterior, asumir que es cero
-    if (isNaN(InicioSession)){
-      InicioSession = 0;
+    if (isNaN(Login)){
+      Login = 0;
     }
-    if (InicioSession === 0 ){
+    if (Login === 0 ){
       Cargar = true;
     }else{
       Cargar=false;
@@ -25,7 +25,7 @@ angular.module('pickplace.services', [])
             setLocalVariable('SessionId', angular.toJson(result.sessid));
             setLocalVariable('SessionName', angular.toJson(result.session_name));
             setLocalVariable('SessionToken', angular.toJson(result.token));
-            setLocalVariable('Usuario', angular.toJson(result.user));
+            setLocalVariable('User', angular.toJson(result.user));
             setLocalVariable('Intro',true);
             this.UserSession = result.user;
             defer.resolve(result.user);
@@ -38,18 +38,16 @@ angular.module('pickplace.services', [])
         }
       });
     }else {
-      this.UserSession = angular.fromJson(getLocalVariable('Usuario'));
+      this.UserSession = angular.fromJson(getLocalVariable('User'));
       defer.resolve(this.UserSession);
       console.log(this.UserSession);
     }
-
-
     return defer.promise;
   };
 
 })
 
-.service('Preferencias', function($q, $http, WebservicesURL) {
+.service('Preferences', function($q, $http, WebservicesURL) {
 
   this.eventsList = [];
 
@@ -97,19 +95,16 @@ angular.module('pickplace.services', [])
       $http.get(WebservicesURL + '/rest/ws_preferencia_usuario.json').
       then(function(response) {
         if (response.data.length > 0) {
-          setLocalVariable('preferencias', angular.toJson(response.data));
+          setLocalVariable('preferences', angular.toJson(response.data));
           setLocalVariable('lastLoading1', currentTime);
           this.eventsList = response.data;
           defer.resolve(response.data);
         }
       });
     } else {
-      this.eventsList = angular.fromJson(getLocalVariable('preferencias'));
-
+      this.eventsList = angular.fromJson(getLocalVariable('preferences'));
       defer.resolve(this.eventsList);
     }
-
-
     return defer.promise;
   };
 

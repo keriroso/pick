@@ -1,11 +1,9 @@
 /* global angular, document, window */
 'use strict';
 angular.module('pickplace.controllers', ['pickplace.services','angular.filter'])
-
 /*
 INTRO
 Controlador para el intro de pick
-
 */
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,$window) {
   // Funcion de redirección  al inicio de sesion
@@ -24,7 +22,7 @@ Controlador para el intro de pick
   $scope.slideChanged = function(index) {
     $scope.slideIndex = index;
   };
-  var intro = (getLocalVariable('Intro') );
+  var intro = getLocalVariable('Intro');
   if (intro) {
     $window.location.href='#/inicio';
   }
@@ -34,12 +32,12 @@ Controlador para el intro de pick
 LOGIN
 Funcion de inicio de sesion
 */
-.controller('UsuarioCtrl', function($scope,$sce,$timeout,$state, $stateParams, ionicMaterialInk,$rootScope,IniciarSesion,$window,$ionicModal,$ionicPopup) {
+.controller('UserCtrl', function($scope,$sce,$timeout,$state, $stateParams, ionicMaterialInk,$rootScope,Login,$window,$ionicModal,$ionicPopup) {
   //funcion para inicio de session
   $scope.login = function(user1,pass) {
     $scope.isLoading = true;
     if(user1!=null && pass!=null){
-      IniciarSesion.getSession(true,user1,pass).then(function(data){
+      Login.getSession(true,user1,pass).then(function(data){
         console.log(data);
         $scope.isLoading = false;
         $rootScope.usuario=data;
@@ -59,7 +57,7 @@ Funcion de inicio de sesion
       $scope.isLoading = false;
     }
   };
-  $scope.EliminarSession = function(cargar) {
+  $scope.eliminarSession = function(cargar) {
     $scope.isLoading = true;
     var token=localStorage.getItem('SessionToken');
     var options= {
@@ -78,10 +76,8 @@ Funcion de inicio de sesion
           console.log(xhr);
           console.log(message);
         }
-
-
       });
-      localStorage.removeItem("Usuario");
+      localStorage.removeItem("User");
       localStorage.removeItem("SessionId");
       localStorage.removeItem("SessionName");
       localStorage.removeItem("SessionToken");
@@ -107,7 +103,6 @@ Funcion de inicio de sesion
         console.log(status);
         $scope.isLoading = false;
         $scope.msgError=angular.fromJson(message);
-
         var name='';
         var mail='';
         var pass='';
@@ -124,8 +119,6 @@ Funcion de inicio de sesion
         console.log($scope.msgError.form_errors.name);
         console.log($scope.msgError.form_errors.mail);
         console.log($scope.msgError.form_errors.pass);
-
-
         $scope.showAlertas('Formulario',$scope.msg);
       }
     });
@@ -136,7 +129,6 @@ Funcion de inicio de sesion
     // $scope.und=[];
     // $scope.field_preferencias=[$scope.und];
     $scope.field_preferencias=[];
-    console.log($scope.field_preferencias.toString());
     var session_name= angular.fromJson(localStorage.getItem("SessionName"));
     var sessid = angular.fromJson(localStorage.getItem("SessionId"));
     angular.forEach(und,function(key,value){
@@ -181,10 +173,10 @@ Funcion de inicio de sesion
       $scope.isLoading = false;
     }
   };
-  $scope.RegisterApp = function() {
+  $scope.registerApp = function() {
     $state.go('registro');
   };
-  $scope.LoginApp = function() {
+  $scope.loginApp = function() {
     $state.go('login');
   };
   // recuperar password
@@ -229,7 +221,6 @@ Funcion de inicio de sesion
 })
 
 .controller('PopupCtrl',function($scope, $ionicPopup, $timeout) {
-
   // Triggered on a button click, or some other target
   $scope.showPopup = function() {
     $scope.data = {};
@@ -295,7 +286,7 @@ Funcion de inicio de sesion
   };
 })
 
-.controller('PreferenciaCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferencias) {
+.controller('PreferencesCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferences) {
 
   // Set Motion
   $timeout(function() {
@@ -314,58 +305,57 @@ Funcion de inicio de sesion
   ionicMaterialInk.displayEffect();
 
   // Item List Arrays
-  $scope.PreferenciasSelected = [];
-  $scope.GuardarPreferencias = function (valorpid,valorcid) {
+  $scope.preferencesSelected = [];
+  $scope.SavePreferences = function (valorpid,valorcid) {
     //Validación  del tamaño del arreglo
-    console.log($scope.PreferenciasSelected.length);
-    if($scope.PreferenciasSelected.length > 0){
+    console.log($scope.preferencesSelected.length);
+    if($scope.preferencesSelected.length > 0){
       //Validación  si el item ya se encuentra en el arreglo
       if($scope.containsObject(valorpid)){
         //Agregar item
-        $scope.PreferenciasSelected.push({
+        $scope.preferencesSelected.push({
           target_id: valorpid,
           // cid: valorcid
         });
-        console.log($scope.PreferenciasSelected);
-
+        console.log($scope.preferencesSelected);
       }else {
         // Eliminar item
-        for(var i = 0; i < $scope.PreferenciasSelected.length; i++) {
-          var obj = $scope.PreferenciasSelected[i];
+        for(var i = 0; i < $scope.preferencesSelected.length; i++) {
+          var obj = $scope.preferencesSelected[i];
           if(valorpid == obj.target_id) {
-            $scope.PreferenciasSelected.splice(i, 1);
+            $scope.preferencesSelected.splice(i, 1);
           }
         }
       }
     }else{
       //Agregar item si esta vacio el arreglo
-      $scope.PreferenciasSelected.push({
+      $scope.preferencesSelected.push({
         target_id: valorpid,
         // cid: valorcid
       });
-      console.log($scope.PreferenciasSelected);
+      console.log($scope.preferencesSelected);
     }
   };
   $scope.containsObject= function(valor) {
     $scope.indexDelete='';
     var i;
-    for (i = 0; i < $scope.PreferenciasSelected.length; i++) {
-      if($scope.PreferenciasSelected[i].target_id == valor){
+    for (i = 0; i < $scope.preferencesSelected.length; i++) {
+      if($scope.preferencesSelected[i].target_id == valor){
         return false;
       }
     }
     return true;
   };
-  $scope.ConsultarPreferencia = function(valor){
+  $scope.searchPreferences = function(valor){
     var i;
-    for (i = 0; i < $scope.PreferenciasSelected.length; i++) {
-      if($scope.PreferenciasSelected[i].target_id == valor){
+    for (i = 0; i < $scope.preferencesSelected.length; i++) {
+      if($scope.preferencesSelected[i].target_id == valor){
         return true;
       }
     }
     return false;
   };
-  $scope.list_preferens = [];
+  $scope.list_preferences = [];
   $scope.isLoading = true;
 
   $scope.loadEvent = function (forceLoading){
@@ -374,52 +364,16 @@ Funcion de inicio de sesion
     if (forceLoading === undefined){
       forceLoading = false;
     }
-
-    Preferencias.getList(forceLoading).then(function(data){
-      $scope.list_preferens = data;
+    Preferences.getList(forceLoading).then(function(data){
+      $scope.list_preferences = data;
       console.log(data);
       $scope.isLoading = false;
     });
-
   };
 })
 .controller('MainCtrl', function($scope, $state) {
-  /*$scope.eventos = [];
-  $scope.isLoading = true;
 
-  $scope.loadInfo = function (forceLoading){
-  $scope.isLoading = true;
-
-  if (forceLoading === undefined){
-  forceLoading = false;
-}
-
-Competencias.getList(forceLoading).then(function(data){
-$scope.isLoading = false;
-$scope.eventos = data;
-console.log(data);
-});
-};
-
-$scope.showEvento = function(idEvento){
-// console.log("Moviendose al evento " + idEvento);
-
-$state.go('detalle_evento', {'eventoId': idEvento});
-};
-
-$scope.actualizarCompetencias = function(){
-$scope.loadInfo(true);
-};
-
-$scope.toIntro = function(){
-$state.go('intro');
-};
-
-console.log("Inicio");
-$scope.loadInfo();
-*/
 })
-
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
   // Form data for the login modal
   $scope.loginData = {};
@@ -433,7 +387,6 @@ $scope.loadInfo();
       this.classList.toggle('active');
     });
   }
-
   ////////////////////////////////////////
   // Layout Methods
   ////////////////////////////////////////
@@ -503,33 +456,26 @@ $scope.loadInfo();
     }
   };
 })
-
 // $scope.$parent.clearFabs();
 // $timeout(function() {
 //     $scope.$parent.hideHeader();
 // }, 0);
 // ionicMaterialInk.displayEffect();
-
-
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
   // Set Header
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
   $scope.$parent.setHeaderFab('left');
-
   // Delay expansion
   $timeout(function() {
     $scope.isExpanded = true;
     $scope.$parent.setExpanded(true);
   }, 300);
-
   // Set Motion
   ionicMaterialMotion.fadeSlideInRight();
-
   // Set Ink
   ionicMaterialInk.displayEffect();
 })
-
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
   // Set Header
   $scope.$parent.showHeader();
@@ -550,24 +496,20 @@ $scope.loadInfo();
       startVelocity: 3000
     });
   }, 700);
-
   // Set Ink
   ionicMaterialInk.displayEffect();
 })
-
 .controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
   $scope.isExpanded = true;
   $scope.$parent.setExpanded(true);
   $scope.$parent.setHeaderFab('right');
-
   $timeout(function() {
     ionicMaterialMotion.fadeSlideIn({
       selector: '.animate-fade-slide-in .item'
     });
   }, 200);
-
   // Activate ink for controller
   ionicMaterialInk.displayEffect();
 })
@@ -590,19 +532,4 @@ $scope.loadInfo();
   });
 
 })
-/*
-.factory('Api', function($http, restEndpoint) {
-console.log('restEndpoint', restEndpoint)
-var getApiData = function() {
-return $http.get(restEndpoint.url + '/rest')
-.then(function(data) {
-console.log('Got some data: ', data);
-return data;
-});
-};
-
-return {
-getApiData: getApiData
-};
-})*/
 ;
