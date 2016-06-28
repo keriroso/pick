@@ -339,14 +339,16 @@ Funcion de inicio de sesion
   var PreferenceUser=JSON.parse(localStorage.getItem("User"));
   // Item List Arrays
   $scope.preferencesSelected = [];
-  if($rootScope.usuario.field_preferencias.und.length>0){
-    angular.forEach($rootScope.usuario.field_preferencias.und,function(key,value){
+  if(!angular.isUndefined(PreferenceUser.field_preferencias.und)){
+  if(PreferenceUser.field_preferencias.und.length>0){
+    angular.forEach(PreferenceUser.field_preferencias.und,function(key,value){
         console.log(key.target_id);
         $scope.preferencesSelected.push(key.target_id);
     });
   }else {
     $scope.preferencesSelected = [];
   }
+}
   console.log($scope.preferencesSelected );
   $scope.SavePreferences = function (valorpid,valorcid) {
 
