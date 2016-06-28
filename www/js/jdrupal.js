@@ -2011,6 +2011,7 @@ function entity_update(entity_type, bundle, entity, options) {
     Drupal.services.call({
         method: 'PUT',
         path: entity_type + '/' + entity[primary_key] + '.json',
+        // path: 'app_user/update',
         service: options.service,
         resource: options.resource,
         entity_type: entity_type,
@@ -2018,6 +2019,49 @@ function entity_update(entity_type, bundle, entity, options) {
         bundle: bundle,
         data: data,
         success: function(result) {
+          try {
+            _entity_local_storage_delete(entity_type, entity[primary_key]);
+            if (options.success) { options.success(result); }
+          }
+          catch (error) { console.log('entity_update - success - ' + error); }
+        },
+        error: function(xhr, status, message) {
+          try {
+            if (options.error) { options.error(xhr, status, message); }
+          }
+          catch (error) { console.log('entity_update - error - ' + error); }
+        }
+    });
+  }
+  catch (error) { console.log('entity_update - ' + error); }
+}
+
+// mi entidad PICK
+
+/**
+ * Updates an entity.
+ * @param {String} entity_type
+ * @param {String} bundle
+ * @param {Object} entity
+ * @param {Object} options
+ */
+function entity_update_pick(entity_type, bundle, entity, options) {
+  try {
+    var entity_wrapper = _entity_wrap(entity_type, entity);
+    var primary_key = entity_primary_key(entity_type);
+    var data = JSON.stringify(entity_wrapper);
+    Drupal.services.call({
+        method: 'PUT',
+        // path: entity_type + '/' + entity[primary_key] + '.json',
+        path: 'app_user/' + entity[primary_key] + '/'+ data,
+        service: options.service,
+        resource: options.resource,
+        entity_type: entity_type,
+        entity_id: entity[entity_primary_key(entity_type)],
+        bundle: bundle,
+        data: data,
+        success: function(result) {
+          console.log(result);
           try {
             _entity_local_storage_delete(entity_type, entity[primary_key]);
             if (options.success) { options.success(result); }
@@ -2650,6 +2694,17 @@ function user_update(account, options) {
     if (account.uid) { mode = 'update'; }
     services_resource_defaults(options, 'user', mode);
     entity_update('user', null, account, options);
+  }
+  catch (error) { console.log('user_update - ' + error); }
+}
+
+//mi funcion
+function user_update_pick(account, options) {
+  try {
+    var mode = 'create';
+    if (account.uid) { mode = 'update'; }
+    services_resource_defaults(options, 'user', mode);
+    entity_update_pick('user', null, account, options);
   }
   catch (error) { console.log('user_update - ' + error); }
 }
