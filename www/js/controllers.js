@@ -66,7 +66,7 @@ Funcion de inicio de sesion
         $scope.isLoading = false;
         $rootScope.usuario=data;
         console.log(window.localStorage.getItem('preferenciaVista'));
-        if(window.localStorage.getItem('preferenciaVista')!=null){
+        if(window.localStorage.getItem('preferenciaVista')){
           $state.go('tab.main');
         }else{
           $state.go('preferencia');
@@ -178,11 +178,13 @@ Funcion de inicio de sesion
     };
     user_update_pick(account, {
       success:function(result) {
-        console.log('Edit user #' + JSON.parse(result));
+        setLocalVariable('preferenciaVista',true);
+        $state.go('tab.main');
       },
       error:function(xhr,status,message){
         console.log(xhr);
         console.log(message);
+        $scope.showAlertas('Error',message);
       }
     });
   };
@@ -351,10 +353,8 @@ Funcion de inicio de sesion
     if ($scope.preferencesSelected.indexOf(valorpid) >= 0) {
       var i = $scope.preferencesSelected.indexOf(valorpid);
       $scope.preferencesSelected.splice(i, 1);
-      console.log('si está - borrado');
     }
     else {
-      console.log('NO está');
       $scope.preferencesSelected.push(valorpid);
 
     }
