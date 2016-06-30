@@ -19,6 +19,8 @@ angular.module('pickplace.services', [])
     }
     if (Cargar){
       // Llama al webservice para obtener la lista de preferencias
+      console.log(user1);
+      console.log(pass);
       user_login(user1, pass, {
         success:function(result){
           if (result.user.name!=null) {

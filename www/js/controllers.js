@@ -5,6 +5,8 @@ angular.module('pickplace.controllers', ['pickplace.services','angular.filter'])
 INTRO
 Controlador para el intro de pick
 */
+.constant('WebservicesURL','http://dev-pick-backend.pantheonsite.io')
+
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,$window) {
   // Funcion de redirección  al inicio de sesion
   $scope.startApp = function() {
@@ -32,7 +34,29 @@ Controlador para el intro de pick
 LOGIN
 Funcion de inicio de sesion
 */
-.controller('UserCtrl', function($scope,$sce,$timeout,$state, $stateParams, ionicMaterialInk,$rootScope,Login,$window,$ionicModal,$ionicPopup) {
+.controller('UserCtrl', function($scope,$sce,$timeout,$state, $stateParams,$http, ionicMaterialInk,$rootScope,Login,$window,$ionicModal,$ionicPopup) {
+  //inicio session de facebook
+  $scope.$on('UserFacebook', function(event,args) {
+    $scope.userData = args.user;
+    console.log($scope.userData);
+    var userName='';
+    var userEmail='';
+    var userId='';// el id se lo toma como password
+    var facebook=true;
+    angular.forEach($scope.userData,function(key,value){
+      if(!angular.isUndefined(key.name) || !angular.isUndefined(key.mail) || !angular.isUndefined(key.id)){
+         userName=key.name;
+         userEmail=key.email;
+         userId= key.id;// el id se lo toma como password
+      }else {
+        var userPicture=key.data.url;
+      }
+    });
+    console.log(userName);
+
+    $scope.createAccount(userName,userEmail,userId,facebook);
+  });
+
   //funcion para inicio de session
   $scope.login = function(user1,pass) {
     $scope.isLoading = true;
@@ -42,12 +66,11 @@ Funcion de inicio de sesion
         $scope.isLoading = false;
         $rootScope.usuario=data;
         console.log(window.localStorage.getItem('preferenciaVista'));
-        if(window.localStorage.getItem('preferenciaVista')!=null){
+        if(window.localStorage.getItem('preferenciaVista')){
           $state.go('tab.main');
         }else{
           $state.go('preferencia');
         }
-        console.log($scope.usuario);
       }).catch(function(data) {
         $scope.showAlertas('Error',data);
         $scope.isLoading = false;
@@ -67,27 +90,26 @@ Funcion de inicio de sesion
     if(cargar){
       user_logout(options,{
         success:function(result){
-          console.log(result);
           if (result[0]) {
             console.log("Logged out!");
           }
         }
         ,error:function(xhr,status,message){
-          console.log(xhr);
-          console.log(message);
+          // console.log(xhr);
+          // console.log(message);
         }
       });
       localStorage.removeItem("User");
       localStorage.removeItem("SessionId");
       localStorage.removeItem("SessionName");
       localStorage.removeItem("SessionToken");
-      setLocalVariable("Usuario",null);
+      setLocalVariable("User",null);
       $scope.isLoading = false;
       $window.location.href='#/inicio';
     }
     $scope.isLoading = false;
   };
-  $scope.createAccount = function(nombre,correo,clave){
+  $scope.createAccount = function(nombre,correo,clave,facebook){
     $scope.isLoading = true;
     var account = {
       name:nombre,
@@ -116,43 +138,53 @@ Funcion de inicio de sesion
           pass='<ion-item class="space-none">'+$scope.msgError.form_errors.pass+'</ion-item>';
         }
         $scope.msg='<ion-list>'+name+mail+pass+'</ion-list>';
-        console.log($scope.msgError.form_errors.name);
-        console.log($scope.msgError.form_errors.mail);
-        console.log($scope.msgError.form_errors.pass);
+        if(facebook==true){
+          $scope.login(nombre,clave);
+        }else {
         $scope.showAlertas('Formulario',$scope.msg);
+        }
+
       }
     });
   };
+
+  /*
+  *  Usuario - Edicion
+  */
   $scope.userUpdate= function(und){
-    var token=angular.fromJson(localStorage.getItem('SessionToken'));
-    console.log(und);
-    // $scope.und=[];
-    // $scope.field_preferencias=[$scope.und];
-    $scope.field_preferencias=[];
     var session_name= angular.fromJson(localStorage.getItem("SessionName"));
     var sessid = angular.fromJson(localStorage.getItem("SessionId"));
-    angular.forEach(und,function(key,value){
-      // var text = 'target_id'+'='+key.target_id;
-      $scope.field_preferencias.push(key.target_id);
-      // var dict = new Array();
-      // var keyValuePair = text.replace(/ /g,'').split('=');
-      // dict[keyValuePair[0]] = keyValuePair[1];
-      // console.log(dict);
-      // $scope.und.push(dict);
-    })
-    console.log($scope.field_preferencias.toString());
+
+    var token=angular.fromJson(localStorage.getItem('SessionToken'));
+    console.log('UND object : ', und);
+
+    var preferencias_array = [];
+
+    var item_language = [];
+
+    angular.forEach(und,function(value){
+      var item = [];
+      item.target_id = value;
+      //preferencias_array.und.push(item);
+      item_language.push(item);
+    });
+
+    preferencias_array.push(item_language);
+
     var account = {
       uid:$rootScope.usuario.uid,
-      field_preferencias:$scope.field_preferencias.toString(),
+      field_preferencias: und,
+
     };
-    console.log(account);
-    user_save(account,{
+    user_update_pick(account, {
       success:function(result) {
-        console.log('Edit user #' + JSON.parse(result));
+        setLocalVariable('preferenciaVista',true);
+        $state.go('tab.main');
       },
       error:function(xhr,status,message){
         console.log(xhr);
         console.log(message);
+        $scope.showAlertas('Error',message);
       }
     });
   };
@@ -286,7 +318,7 @@ Funcion de inicio de sesion
   };
 })
 
-.controller('PreferencesCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferences) {
+.controller('PreferencesCtrl', function($rootScope,$scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferences) {
 
   // Set Motion
   $timeout(function() {
@@ -303,39 +335,35 @@ Funcion de inicio de sesion
 
   // Set Ink
   ionicMaterialInk.displayEffect();
-
+  //extract storage user
+  var PreferenceUser=JSON.parse(localStorage.getItem("User"));
   // Item List Arrays
   $scope.preferencesSelected = [];
+  if(!angular.isUndefined(PreferenceUser.field_preferencias.und)){
+  if(PreferenceUser.field_preferencias.und.length>0){
+    angular.forEach(PreferenceUser.field_preferencias.und,function(key,value){
+        console.log(key.target_id);
+        $scope.preferencesSelected.push(key.target_id);
+    });
+  }else {
+    $scope.preferencesSelected = [];
+  }
+}
+  console.log($scope.preferencesSelected );
   $scope.SavePreferences = function (valorpid,valorcid) {
-    //Validación  del tamaño del arreglo
-    console.log($scope.preferencesSelected.length);
-    if($scope.preferencesSelected.length > 0){
-      //Validación  si el item ya se encuentra en el arreglo
-      if($scope.containsObject(valorpid)){
-        //Agregar item
-        $scope.preferencesSelected.push({
-          target_id: valorpid,
-          // cid: valorcid
-        });
-        console.log($scope.preferencesSelected);
-      }else {
-        // Eliminar item
-        for(var i = 0; i < $scope.preferencesSelected.length; i++) {
-          var obj = $scope.preferencesSelected[i];
-          if(valorpid == obj.target_id) {
-            $scope.preferencesSelected.splice(i, 1);
-          }
-        }
-      }
-    }else{
-      //Agregar item si esta vacio el arreglo
-      $scope.preferencesSelected.push({
-        target_id: valorpid,
-        // cid: valorcid
-      });
-      console.log($scope.preferencesSelected);
+
+    if ($scope.preferencesSelected.indexOf(valorpid) >= 0) {
+      var i = $scope.preferencesSelected.indexOf(valorpid);
+      $scope.preferencesSelected.splice(i, 1);
     }
+    else {
+      $scope.preferencesSelected.push(valorpid);
+
+    }
+    console.log($scope.preferencesSelected);
+
   };
+
   $scope.containsObject= function(valor) {
     $scope.indexDelete='';
     var i;
@@ -349,7 +377,8 @@ Funcion de inicio de sesion
   $scope.searchPreferences = function(valor){
     var i;
     for (i = 0; i < $scope.preferencesSelected.length; i++) {
-      if($scope.preferencesSelected[i].target_id == valor){
+      if ($scope.preferencesSelected.indexOf(valor) >= 0) {
+        //if($scope.preferencesSelected[i].target_id == valor){
         return true;
       }
     }
