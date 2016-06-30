@@ -45,9 +45,9 @@ Funcion de inicio de sesion
     var facebook=true;
     angular.forEach($scope.userData,function(key,value){
       if(!angular.isUndefined(key.name) || !angular.isUndefined(key.mail) || !angular.isUndefined(key.id)){
-         userName=key.name;
-         userEmail=key.email;
-         userId= key.id;// el id se lo toma como password
+        userName=key.name;
+        userEmail=key.email;
+        userId= key.id;// el id se lo toma como password
       }else {
         var userPicture=key.data.url;
       }
@@ -65,10 +65,20 @@ Funcion de inicio de sesion
         console.log(data);
         $scope.isLoading = false;
         $rootScope.usuario=data;
-        console.log(window.localStorage.getItem('preferenciaVista'));
-        if(window.localStorage.getItem('preferenciaVista')){
-          $state.go('tab.main');
-        }else{
+        if($rootScope.usuario.field_saw_preference){
+          $scope.saw_preference=0;
+          angular.forEach($rootScope.usuario.field_saw_preference,function(key,value){
+            console.log(key);
+            angular.forEach(key,function(key2,value2){
+              $scope.saw_preference=key2.value;
+            })
+          });
+          if($scope.saw_preference){
+            $state.go('tab.main');
+          }else {
+            $state.go('preferencia');
+          }
+        }else {
           $state.go('preferencia');
         }
       }).catch(function(data) {
@@ -141,7 +151,7 @@ Funcion de inicio de sesion
         if(facebook==true){
           $scope.login(nombre,clave);
         }else {
-        $scope.showAlertas('Formulario',$scope.msg);
+          $scope.showAlertas('Formulario',$scope.msg);
         }
 
       }
@@ -174,11 +184,12 @@ Funcion de inicio de sesion
     var account = {
       uid:$rootScope.usuario.uid,
       field_preferencias: und,
+      field_saw_preference: 1,
+      //field_saw_preference siemrpe debe viajar en cada peticion update
 
     };
     user_update_pick(account, {
       success:function(result) {
-        setLocalVariable('preferenciaVista',true);
         $state.go('tab.main');
       },
       error:function(xhr,status,message){
@@ -340,15 +351,15 @@ Funcion de inicio de sesion
   // Item List Arrays
   $scope.preferencesSelected = [];
   if(!angular.isUndefined(PreferenceUser.field_preferencias.und)){
-  if(PreferenceUser.field_preferencias.und.length>0){
-    angular.forEach(PreferenceUser.field_preferencias.und,function(key,value){
+    if(PreferenceUser.field_preferencias.und.length>0){
+      angular.forEach(PreferenceUser.field_preferencias.und,function(key,value){
         console.log(key.target_id);
         $scope.preferencesSelected.push(key.target_id);
-    });
-  }else {
-    $scope.preferencesSelected = [];
+      });
+    }else {
+      $scope.preferencesSelected = [];
+    }
   }
-}
   console.log($scope.preferencesSelected );
   $scope.SavePreferences = function (valorpid,valorcid) {
 
