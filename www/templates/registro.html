@@ -3,16 +3,16 @@
     <div class="list texto-grande padding">
         <form name='FormRegister' >
           <label class="item item-input item-floating-label">
-            <span class="input-label texto-normal carrot-c ">Usuario</span>
-            <input type="text" ng-model='username' class='smoke padding-left'  required placeholder="USUARIO">
+            <span class="input-label texto-normal  ">Usuario</span>
+            <input type="text" ng-model='username' class=' padding-left bold' required placeholder="USUARIO">
           </label>
           <label class="item item-input item-floating-label">
-            <span class="input-label texto-normal carrot-c">Email</span>
-            <input type="email" ng-model='email' class='smoke padding-left' required  placeholder="EMAIL">
+            <span class="input-label texto-normal ">Email</span>
+            <input type="email" ng-model='email' class=' padding-left bold' required  placeholder="EMAIL">
           </label>
           <label class="item item-input item-floating-label">
-            <span class="input-label texto-normal carrot-c ">Contraseña</span>
-            <input type="password" ng-model='contrasena' class='smoke padding-left '  required placeholder="CONTRASEÑA">
+            <span class="input-label texto-normal  ">Contraseña</span>
+            <input type="password" ng-model='contrasena' class=' padding-left bold'  required placeholder="CONTRASEÑA">
           </label>
           <br>
           <button ng-controller='PopupCtrl' class="button button-full button-assertive height no-margin ink" ng-click='createAccount(username,email,contrasena,false)'>

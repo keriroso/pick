@@ -1,38 +1,39 @@
 <ion-view hide-back-button="true" view-title="Categorías">
+  <ion-nav-buttons side="left">
+  <button menu-toggle="left" class="button button-icon button-clear icon ion-navicon"></button>
+</ion-nav-buttons>
   <ion-content class="padding">
-
-<div class='center-text' ng-show="isLoading">
-    <ion-spinner icon="spiral"></ion-spinner>
-</div>
-<a ng-controller='UserCtrl' ng-click='eliminarSession(true)' >Cerrar session</a>
-<!--<ion-refresher
+    <div class='center-text' ng-show="isLoading">
+      <ion-spinner icon="spiral"></ion-spinner>
+    </div>
+    <!--<ion-refresher
     pulling-text="Arrastrar para actualizar..."
     on-refresh="actualizarCompetencias()"
     spinner='none'>
   </ion-refresher>
 
   <ion-list>
-    <ion-item ng-repeat="evento in eventos" href="#/tab/evento/{{evento.nid}}" class="item-thumbnail-left">
-        <img ng-src="{{evento.Imagen | defaultImage}}" />
-        <h2>{{evento.Nombre}}</h2>
-        <h4>{{ (evento.Fecha.value * 1000) | date:"dd/MM/yyyy @ h:mma"}}</h4>
-        <p>
-          Costo: {{evento.Costo}}
-        </p>
-        <p>
-          Ciudad: {{evento.Ciudad}}
-        </p>
-    </ion-item>
-  </ion-list><h4>{{ (evento.Fecha.value * 1000) | date:"dd/MM/yyyy @ h:mma"}}</h4>
-        <p>
-          Costo: {{evento.Costo}}
-        </p>
-        <p>
-          Ciudad: {{evento.Ciudad}}
-        </p>
-    </ion-item>
-  </ion-list>-->
-  {{usuario.name}}
-    <!-- <button class="button calm" ng-click="toIntro()">Volver al tutorial</button> -->
-  </ion-content>
+  <ion-item ng-repeat="evento in eventos" href="#/tab/evento/{{evento.nid}}" class="item-thumbnail-left">
+  <img ng-src="{{evento.Imagen | defaultImage}}" />
+  <h2>{{evento.Nombre}}</h2>
+  <h4>{{ (evento.Fecha.value * 1000) | date:"dd/MM/yyyy @ h:mma"}}</h4>
+  <p>
+  Costo: {{evento.Costo}}
+</p>
+<p>
+Ciudad: {{evento.Ciudad}}
+</p>
+</ion-item>
+</ion-list><h4>{{ (evento.Fecha.value * 1000) | date:"dd/MM/yyyy @ h:mma"}}</h4>
+<p>
+Costo: {{evento.Costo}}
+</p>
+<p>
+Ciudad: {{evento.Ciudad}}
+</p>
+</ion-item>
+</ion-list>-->
+{{usuario.name}}
+<!-- <button class="button calm" ng-click="toIntro()">Volver al tutorial</button> -->
+</ion-content>
 </ion-view>

@@ -4,21 +4,36 @@ Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-icon-bottom tabs-bottom tabs-calm ">
-
+<!-- menu -->
+  <ion-nav-buttons side="left">
+     <button class="button button-icon button-clear ion-navicon" ng-click="openMenu()"></button>
+  </ion-nav-buttons>
   <!-- Dashboard Tab -->
-  <ion-tab title="Categorías" icon-off="ion-grid-outline" icon-on="ion-grid" href="#/tab/categorias">
+  <!-- Ion tab for andrid and iphone -->
+  <!-- Home  -->
+  <ion-tab ng-if="currentPlatform==='android'" title="Home"  icon="ion-home" >
     <ion-nav-view name="tab-main"></ion-nav-view>
   </ion-tab>
-
-  <!-- <ion-tab title="Comunidades" icon-off="ion-ios-people-outline" icon-on="ion-ios-people" href="#/tab/preferencia">
-    <ion-nav-view name="tab-preferencia"></ion-nav-view>
-  </ion-tab> -->
-
-  <!-- Account Tab -->
-<!--  <ion-tab title="Mi Perfil" icon-off="ion-ribbon-a" icon-on="ion-ribbon-a" href="#/tab/perfil">
-    <ion-nav-view name="tab-perfil"></ion-nav-view>
+  <ion-tab ng-if="currentPlatform!=='android'" title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" >
+    <ion-nav-view name="tab-main"></ion-nav-view>
   </ion-tab>
--->
+  <!-- Home end -->
+  <!-- Promociones  -->
+  <ion-tab ng-if="currentPlatform==='android'" title="Promociones"  icon="ion-pricetags" >
+    <ion-nav-view name="tab-promocion"></ion-nav-view>
+  </ion-tab>
+  <ion-tab ng-if="currentPlatform!=='android'" title="Promociones" icon-off="ion-ios-pricetags-outline" icon-on="ion-ios-pricetags" >
+    <ion-nav-view name="tab-promocion"></ion-nav-view>
+  </ion-tab>
+  <!-- Promociones end -->
+  <!-- Mapa  -->
+  <ion-tab ng-if="currentPlatform==='android'" title="Mapa"  icon="ion-map" >
+    <ion-nav-view name="tab-map"></ion-nav-view>
+  </ion-tab>
+  <ion-tab ng-if="currentPlatform!=='android'" title="Mapa" icon-off="ion-ios-navigate-outline" icon-on="ion-ios-navigate" >
+    <ion-nav-view name="tab-map"></ion-nav-view>
+  </ion-tab>
+  <!-- Mapa end -->
 
 
 </ion-tabs>

@@ -8,6 +8,7 @@ angular.module('pickplace', [
   'pickplace.loginfb',
   'pickplace.geolocation'])
   .run(function($ionicPlatform,$window,$rootScope) {
+    console.log($ionicPlatform);
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -23,9 +24,13 @@ angular.module('pickplace', [
       }
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
-        StatusBar.styleDefault();
+        // StatusBar.styleDefault();
       }
+
     });
+    //device the User
+      $rootScope.currentPlatform = ionic.Platform.platform();
+
     // Agregar SDK para login con Facebook
     (function(d){
       // load the Facebook javascript SDK
@@ -50,10 +55,7 @@ angular.module('pickplace', [
     }(document));
     // FIN - Agregar SDK para login con Facebook
 
-
-
   })
-
 
   .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider,$httpProvider, $facebookProvider) {
 
@@ -77,7 +79,34 @@ angular.module('pickplace', [
     $stateProvider.state('tab', {
       url: "/tab",
       abstract: true,
-      templateUrl: "templates/tabs.html"
+      templateUrl: "templates/tabs.html",
+    })
+    .state('tab.main', {
+      url: '/main',
+      views: {
+        'tab-main': {
+          templateUrl: 'templates/main.html',
+          controller: 'MainCtrl'
+        }
+      }
+    })
+    .state('tab.map', {
+      url: '/map',
+      views: {
+        'tab-map': {
+          templateUrl: 'templates/pruebas.html',
+          // controller: 'MainCtrl'
+        }
+      }
+    })
+    .state('tab.promocion', {
+      url: '/promocion',
+      views: {
+        'tab-promocion': {
+          templateUrl: 'templates/promocion.html',
+          // controller: 'MainCtrl'
+        }
+      }
     })
     .state('intro', {
       url: '/',
@@ -89,7 +118,6 @@ angular.module('pickplace', [
       templateUrl: 'templates/inicio.html',
       controller: 'UserCtrl'
     })
-
     .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',
@@ -100,28 +128,20 @@ angular.module('pickplace', [
       templateUrl: 'templates/registro.html',
       controller: 'UserCtrl'
     })
-
     .state('preferencia', {
       url: '/preferencia',
       templateUrl: 'templates/preferencias.html',
       controller: 'PreferencesCtrl'
     })
-    .state('tab.main', {
-      url: '/main',
-      views: {
-        'tab-main': {
-          templateUrl: 'templates/main.html',
-          controller: 'MainCtrl'
-        }
-      }
-    })
 
+  //   .state('app', {
+  //   url: '/app',
+  //   abstract: true,
+  //   templateUrl: 'templates/menu.html',
+  //   controller: 'AppCtrl'
+  //  })
     // pagina de pruebas tecnologicas e investigacion
-    .state('pruebas', {
-      url: '/pruebas',
-      templateUrl: 'templates/pruebas.html',
-      //controller: 'geolocCtrl',
-    });
+
     // pagina de pruebas tecnologicas e investigacion - EN
 
     $urlRouterProvider.otherwise("/");

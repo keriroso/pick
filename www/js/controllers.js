@@ -6,7 +6,14 @@ INTRO
 Controlador para el intro de pick
 */
 .constant('WebservicesURL','http://dev-pick-backend.pantheonsite.io')
-
+.controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
+  $scope.showMenu = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+  $scope.showRightMenu = function () {
+    $ionicSideMenuDelegate.toggleRight();
+  };
+})
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,$window) {
   // Funcion de redirección  al inicio de sesion
   $scope.startApp = function() {
