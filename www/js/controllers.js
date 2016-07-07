@@ -89,8 +89,9 @@ Funcion de inicio de sesion
           $state.go('preferencia');
         }
       }).catch(function(data) {
-        $scope.showAlertas('Error',data);
         $scope.isLoading = false;
+        $scope.showAlertas('Error',data);
+        console.log('no entro');
       });
     }else{
       $scope.showAlertas('Error','Ingrese los campos vacíos');

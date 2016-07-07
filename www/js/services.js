@@ -36,6 +36,7 @@ angular.module('pickplace.services', [])
         error:function(xhr, status, message){
           console.log(xhr);
           console.log(status);
+          console.log(message);
           defer.reject(message);
         }
       });
