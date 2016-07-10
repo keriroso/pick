@@ -1965,6 +1965,55 @@ function entity_create(entity_type, bundle, entity, options) {
 }
 
 /**
+ * Creates an entity.
+ * @param {String} entity_type
+ * @param {String} bundle
+ * @param {Object} entity
+ * @param {Object} options
+ */
+function entity_create_social(entity_type, bundle, entity, options) {
+  // entity_type='app_login';
+  options.resource='login';
+  options.service='app_login';
+  console.log('////Options////');
+  console.log(options);
+  console.log('entity_type:'+ entity_type);
+  console.log('entity:');
+  console.log(JSON.stringify(entity));
+  console.log('resource:'+options.resource);
+  console.log('service:'+options.service);
+  console.log('// end options///');
+  try {
+    Drupal.services.call({
+        method: 'POST',
+        async: options.async,
+        path: 'app_login/login',
+        service: options.service,
+        resource:options.resource ,
+        entity_type: entity_type,
+        bundle: bundle,
+        data: JSON.stringify(entity),
+        success: function(data) {
+          console.log(data);
+          console.log(options.success);
+          try {
+            if (options.success) { options.success(data); }
+          }
+          catch (error) { console.log('entity_create - success - ' + error); }
+        },
+        error: function(xhr, status, message) {
+          console.log(message);
+          try {
+            if (options.error) { options.error(xhr, status, message); }
+          }
+          catch (error) { console.log('entity_create - error - ' + error); }
+        }
+    });
+  }
+  catch (error) { console.log('entity_create - ' + error); }
+}
+
+/**
  * Retrieves an entity.
  * @param {String} entity_type
  * @param {Number} ids
@@ -2666,6 +2715,19 @@ function user_create(account, options) {
   try {
     services_resource_defaults(options, 'user', 'create');
     entity_create('user', null, account, options);
+  }
+  catch (error) { console.log('user_create - ' + error); }
+}
+
+/**
+ * Creates a user.
+ * @param {Object} account
+ * @param {Object} options
+ */
+function user_create_social(account, options) {
+  try {
+    services_resource_defaults(options, 'user', 'create');
+    entity_create_social('user', null, account, options);
   }
   catch (error) { console.log('user_create - ' + error); }
 }

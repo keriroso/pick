@@ -6,6 +6,8 @@ INTRO
 Controlador para el intro de pick
 */
 .constant('WebservicesURL','http://dev-pick-backend.pantheonsite.io')
+.constant('LogoApp','<img ng-src="img/logo/pick-logo.png">')
+
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
   $scope.showMenu = function () {
     $ionicSideMenuDelegate.toggleLeft();
@@ -60,8 +62,47 @@ Funcion de inicio de sesion
       }
     });
     console.log(userName);
+    var userSocial={
+      name:userName,
+      mail:userEmail,
+    };
+    $scope.isLoading = true;
+    var account = {
+      type:'facebook',
+      data:userSocial
+    };
+    user_create_social(account,{
+      success:function(result) {
+        console.log(result);
+        // $scope.login(nombre,clave);
+      },
+      error:function(xhr, status, message){
+        console.log(xhr);
+        console.log(status);
+        $scope.isLoading = false;
+        $scope.msgError=angular.fromJson(message);
+        var name='';
+        var mail='';
+        var pass='';
+        if(!angular.isUndefined($scope.msgError.form_errors.name)){
+          name='<ion-item class="space-none">'+$scope.msgError.form_errors.name+'</ion-item>';
+        }
+        if(!angular.isUndefined($scope.msgError.form_errors.mail)){
+          mail='<ion-item class="space-none">'+$scope.msgError.form_errors.mail+'</ion-item>';
+        }
+        if(!angular.isUndefined($scope.msgError.form_errors.pass)){
+          pass='<ion-item class="space-none">'+$scope.msgError.form_errors.pass+'</ion-item>';
+        }
+        $scope.msg='<ion-list>'+name+mail+pass+'</ion-list>';
+        if(facebook==true){
+          $scope.login(nombre,clave);
+        }else {
+          $scope.showAlertas('Formulario',$scope.msg);
+        }
 
-    $scope.createAccount(userName,userEmail,userId,facebook);
+      }
+    });
+    // $scope.createAccount(userName,userEmail,userId,facebook);
   });
 
   //funcion para inicio de session
@@ -89,9 +130,8 @@ Funcion de inicio de sesion
           $state.go('preferencia');
         }
       }).catch(function(data) {
-        $scope.isLoading = false;
         $scope.showAlertas('Error',data);
-        console.log('no entro');
+        $scope.isLoading = false;
       });
     }else{
       $scope.showAlertas('Error','Ingrese los campos vacíos');
@@ -419,8 +459,27 @@ Funcion de inicio de sesion
     });
   };
 })
-.controller('MainCtrl', function($scope, $state) {
+.controller('PromoCtrl', function($scope, $state,Promociones) {
+  $scope.list_promociones = [];
+  $scope.isLoading = true;
 
+  $scope.loadEvent = function (forceLoading){
+    $scope.isLoading = true;
+    console.log('cargando');
+    if (forceLoading === undefined){
+      forceLoading = false;
+    }
+    Promociones.getList(forceLoading).then(function(data){
+      $scope.list_promociones = data;
+      console.log(data);
+      $scope.isLoading = false;
+      console.log(data);
+    });
+  };
+  $scope.loadEvent();
+})
+.controller('MainCtrl', function($scope, $state) {
+// $scope.logo='<img src=\"../img/logo/pick-logo.png\">';
 })
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
   // Form data for the login modal

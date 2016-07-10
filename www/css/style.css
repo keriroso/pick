@@ -176,6 +176,10 @@ p {
   -webkit-display: flex;
   -webkit-flex-direction: row; }
 
+.item-image img:first-child, .item-image .list-img {
+  height: 100%;
+  max-width: 100%; }
+
 .item-thumbnail-preferencia {
   padding: 5%;
   margin: 1%;
@@ -215,6 +219,25 @@ span.back-text {
   right: 10px;
   font-size: 2em;
   transform: rotate(45deg); }
+
+/*Promociones*/
+.title-promo {
+  position: absolute;
+  bottom: 50px;
+  z-index: 2;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0 10px; }
+
+.card-tipo-promo {
+  position: absolute;
+  top: 10px;
+  z-index: 2;
+  right: 15px;
+  color: white;
+  background: rgba(228, 33, 18, 0.6);
+  padding: 6px 13px;
+  font-weight: bold; }
 
 /* Login
 ==================================*/

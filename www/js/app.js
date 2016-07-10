@@ -1,4 +1,3 @@
-//APP PICK
 angular.module('pickplace', [
   'ionic',
   'pickplace.controllers',
@@ -104,7 +103,7 @@ angular.module('pickplace', [
       views: {
         'tab-promocion': {
           templateUrl: 'templates/promocion.html',
-          // controller: 'MainCtrl'
+           controller: 'PromoCtrl'
         }
       }
     })

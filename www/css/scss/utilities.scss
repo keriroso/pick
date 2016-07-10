@@ -1,18 +1,21 @@
 .app-loading{
-position: absolute;
-height: 100%;
-width: 100%;
-z-index: 2;
-background: rgba(255, 255, 255, 0.72);
-text-align: center;
-top: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.72);
+  text-align: center;
+  top: 0;
 }
 .item-avatar-profile{
-width:100px !important;
-height : 100px !important;
+  width:100px !important;
+  height : 100px !important;
 }
 .top-header-profile{
   top: 140px!important;
+}
+.bar{
+  height: 50px!important;
 }
 .list-preferencia{
   display: flex;
@@ -20,6 +23,10 @@ height : 100px !important;
   flex-direction: row;
   -webkit-display:flex;
   -webkit-flex-direction:row;
+}
+.item-image img:first-child, .item-image .list-img{
+  height: 100%;
+  max-width: 100%
 }
 .item-thumbnail-preferencia{
   padding: 5%;
@@ -32,21 +39,21 @@ height : 100px !important;
   font-size: 2em;
 }
 span.back-text {
-    display: none!important;
+  display: none!important;
 }
 .spinner svg {
-    /* width: 1em; */
-    /* height: 1em; */
-    width: 25%!important;
-    height: auto!important;
-    margin: 20% 0% 0% 0%;
+  /* width: 1em; */
+  /* height: 1em; */
+  width: 25%!important;
+  height: auto!important;
+  margin: 20% 0% 0% 0%;
 }
 .fondo-block{
   height: 100%;
   position: absolute;
   background: rgba(0,0,0,0.65);
   width: 100%;
-overflow: scroll;
+  overflow: scroll;
 }
 .class_active{
   background: #e74c3c;
@@ -61,4 +68,23 @@ overflow: scroll;
   right: 10px;
   font-size: 2em;
   transform: rotate(45deg)
+}
+/*Promociones*/
+.title-promo{
+  position: absolute;
+  bottom: 50px;
+  z-index: 2;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0 10px;
+}
+.card-tipo-promo {
+  position: absolute;
+  top: 10px;
+  z-index: 2;
+  right: 15px;
+  color: white;
+  background: rgba(228,33,18,0.60);
+  padding: 6px 13px;
+  font-weight: bold;
 }
