@@ -1,4 +1,4 @@
-<ion-view view-title="Inicio" hide-nav-bar="true" align-title="left">
+<ion-view view-title="Inicio" hide-nav-bar="true" align-title="left" nav-view='disable'>
   <ion-content overflow-scroll=true scroll=true style="background: url(img/login/pick-fondos.jpg) center; background-size: cover; ">
     <div class="fondo-block">
       <div class="hero no-header flat list">
@@ -18,7 +18,6 @@
                 >
           Iniciar con facebook</button>
         </div>
-
         <div class="button-bar ">
           <button ng-click='loginApp()' class="button button-full button white-c carrot-b  texto-normal ink bold">Iniciar sesion</button>
           <button class="button button-full button-border icon-left button-assertive texto-normal bold" ng-click='registerApp()'>Registrarse</button>
@@ -27,4 +26,6 @@
     </div>
     <ion-spinner class="spinner-energized app-loading" ng-show='isLoading' icon='ripple'></ion-spinner>
   </ion-content>
+  <div ng-include='menu.html'>
+  </div>
 </ion-view>

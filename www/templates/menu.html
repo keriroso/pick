@@ -1,25 +1,39 @@
-<ion-side-menus>
-  <ion-pane ion-side-menu-content>
-    <ion-nav-bar type="bar-positive"
-    back-button-type="button-icon"
-    back-button-icon="ion-ios7-arrow-back"
-    animation="nav-title-slide-ios7"
-    >
-  </ion-nav-bar>
-  <ion-nav-view name="main"></ion-nav-view>
-</ion-pane>
-
 <ion-side-menu side="left">
-  <header class="bar bar-header bar-assertive">
-    <div class="title">Side Menu</div>
-  </header>
-  <ion-content has-header="true">
-    <ul class="list">
-      <a ui-sref="entry" class="item">Back To Entry Page</a>
-      <a ui-sref="main.home" class="item" ng-click="toggleMenu()">Home</a>
-      <a ui-sref="main.tabs" class="item" ng-click="toggleMenu()">Tabs</a>
-    </ul>
+  <ion-header-bar class="bar bar-header bar-assertive padding class_active auto-h">
+  <img class="radius item-avatar-profile" ng-src="img/daenerys.jpg">
+  <h1 class="title relative pre-line right-p left-p line-height-normal auto-h">{{usuario.name}}</h1>
+  <i ng-if="currentPlatform!==&apos;android&apos;" class="button-icon check-in ion-pin"></i>
+  <i ng-if="currentPlatform===&apos;android&apos;" class="button-icon check-in ion-android-pin"></i>
+  </ion-header-bar>
+  <ion-content has-header="true" class="top-header-profile">
+    <ion-list>
+    <ion-item ng-if="currentPlatform!==&apos;android&apos;" menu-close="" class="concrete"> <i class="icon ion-pin padding font-icon"></i>Check-in</ion-item>
+    <ion-item ng-if="currentPlatform===&apos;android&apos;" menu-close="" class="concrete"> <i class="icon ion-android-pin padding font-icon"></i>Check-in</ion-item>
+    <ion-item ng-if="currentPlatform!==&apos;android&apos;" menu-close="" class="concrete"><i class="icon ion-ios-person-outline padding font-icon"></i>Mi Perfil</ion-item>
+    <ion-item ng-if="currentPlatform===&apos;android&apos;" menu-close="" class="concrete"><i class="icon ion-person padding font-icon"></i>Mi Perfil</ion-item>
+    <ion-item ng-if="currentPlatform==&apos;android&apos;" menu-close="" class="concrete"><i class="icon ion-android-locate padding font-icon"></i>Mis Checkin</ion-item>
+    <ion-item ng-if="currentPlatform!==&apos;android&apos;" menu-close="" class="concrete"><i class="icon ion-ios-location-outline padding font-icon"></i>Mis Check-in</ion-item>
+    <ion-item ng-if="currentPlatform!==&apos;android&apos;" menu-close="" class="concrete"><i class="icon ion-ios-heart-outline padding font-icon"></i>Mis Locales</ion-item>
+    <ion-item ng-if="currentPlatform ===&apos;android&apos;" menu-close="" class="concrete"><i class="icon ion-android-favorite padding font-icon"></i>Mis Locales</ion-item>
+    <ion-item ng-if="currentPlatform!==&apos;android&apos;" menu-close="" class="concrete">
+      <a ng-href="#/preferencia" class="text-decoration-none concrete">
+        <i class="icon ion-happy-outline padding font-icon"></i>Mis Prefencias
+      </a>
+    </ion-item>
+    <ion-item ng-if="currentPlatform ===&apos;android&apos;" menu-close="" class="concrete">
+      <a ng-href="#/preferencia" class="text-decoration-none concrete">
+        <i class="icon ion-android-happy padding font-icon "></i>Mis Prefencias
+      </a>
+    </ion-item>
+    <ion-item ng-if="currentPlatform!==&apos;android&apos;" menu-close="" class="concrete"><i class="icon ion-ios-gear-outline padding font-icon"></i>Configuracion</ion-item>
+    <ion-item ng-if="currentPlatform ===&apos;android&apos;" menu-close="" class="concrete"><i class="icon ion-gear-a padding font-icon"></i>Configuracion</ion-item>
+    <ion-item ng-if="currentPlatform!==&apos;android&apos;" menu-close="" class="concrete">
+      <a ng-controller="UserCtrl" ng-click="eliminarSession(true)" class="text-decoration-none concrete">
+        <i class="icon ion-ios-close-outline padding font-icon"></i>Cerrar session</a>
+      </ion-item>
+    <ion-item ng-if="currentPlatform ===&apos;android&apos;" menu-close="" class="concrete">
+      <a ng-controller="UserCtrl" ng-click="eliminarSession(true)" class="text-decoration-none concrete">
+    <i class="icon ion-close padding font-icon"></i>Cerrar session</a></ion-item>
+  </ion-list>
   </ion-content>
 </ion-side-menu>
-
-</ion-side-menus>

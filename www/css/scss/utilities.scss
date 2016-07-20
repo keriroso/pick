@@ -14,9 +14,9 @@
 .top-header-profile{
   top: 140px!important;
 }
-.bar{
-  height: 50px!important;
-}
+// .bar{
+//   height: 50px!important;
+// }
 .list-preferencia{
   display: flex;
   overflow-x: scroll;
@@ -42,11 +42,18 @@ span.back-text {
   display: none!important;
 }
 .spinner svg {
-  /* width: 1em; */
-  /* height: 1em; */
   width: 25%!important;
   height: auto!important;
   margin: 20% 0% 0% 0%;
+}
+.no-results{
+  border-radius: 10px;
+  background: #e74c3c;
+}
+
+.spiral-spiner svg{
+  width: 28px!important;
+  height: 28px!important;
 }
 .fondo-block{
   height: 100%;

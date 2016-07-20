@@ -27,10 +27,10 @@ navigation history that also transitions its views in and out.
   </ion-tab>
   <!-- Promociones end -->
   <!-- Mapa  -->
-  <ion-tab ng-if="currentPlatform==='android'" title="Mapa"  icon="ion-map" >
+  <ion-tab ng-if="currentPlatform==='android'" title="Mapa" href="#/tab/map" icon="ion-map" >
     <ion-nav-view name="tab-map"></ion-nav-view>
   </ion-tab>
-  <ion-tab ng-if="currentPlatform!=='android'" title="Mapa" icon-off="ion-ios-navigate-outline" icon-on="ion-ios-navigate" >
+  <ion-tab ng-if="currentPlatform!=='android'" title="Mapa" href="#/tab/map" icon-off="ion-ios-navigate-outline" icon-on="ion-ios-navigate" >
     <ion-nav-view name="tab-map"></ion-nav-view>
   </ion-tab>
   <!-- Mapa end -->

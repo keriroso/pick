@@ -44,66 +44,6 @@ LOGIN
 Funcion de inicio de sesion
 */
 .controller('UserCtrl', function($scope,$sce,$timeout,$state, $stateParams,$http, ionicMaterialInk,$rootScope,Login,$window,$ionicModal,$ionicPopup) {
-  //inicio session de facebook
-  $scope.$on('UserFacebook', function(event,args) {
-    $scope.userData = args.user;
-    console.log($scope.userData);
-    var userName='';
-    var userEmail='';
-    var userId='';// el id se lo toma como password
-    var facebook=true;
-    angular.forEach($scope.userData,function(key,value){
-      if(!angular.isUndefined(key.name) || !angular.isUndefined(key.mail) || !angular.isUndefined(key.id)){
-        userName=key.name;
-        userEmail=key.email;
-        userId= key.id;// el id se lo toma como password
-      }else {
-        var userPicture=key.data.url;
-      }
-    });
-    console.log(userName);
-    var userSocial={
-      name:userName,
-      mail:userEmail,
-    };
-    $scope.isLoading = true;
-    var account = {
-      type:'facebook',
-      data:userSocial
-    };
-    user_create_social(account,{
-      success:function(result) {
-        console.log(result);
-        // $scope.login(nombre,clave);
-      },
-      error:function(xhr, status, message){
-        console.log(xhr);
-        console.log(status);
-        $scope.isLoading = false;
-        $scope.msgError=angular.fromJson(message);
-        var name='';
-        var mail='';
-        var pass='';
-        if(!angular.isUndefined($scope.msgError.form_errors.name)){
-          name='<ion-item class="space-none">'+$scope.msgError.form_errors.name+'</ion-item>';
-        }
-        if(!angular.isUndefined($scope.msgError.form_errors.mail)){
-          mail='<ion-item class="space-none">'+$scope.msgError.form_errors.mail+'</ion-item>';
-        }
-        if(!angular.isUndefined($scope.msgError.form_errors.pass)){
-          pass='<ion-item class="space-none">'+$scope.msgError.form_errors.pass+'</ion-item>';
-        }
-        $scope.msg='<ion-list>'+name+mail+pass+'</ion-list>';
-        if(facebook==true){
-          $scope.login(nombre,clave);
-        }else {
-          $scope.showAlertas('Formulario',$scope.msg);
-        }
-
-      }
-    });
-    // $scope.createAccount(userName,userEmail,userId,facebook);
-  });
 
   //funcion para inicio de session
   $scope.login = function(user1,pass) {

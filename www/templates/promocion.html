@@ -4,15 +4,20 @@
   </ion-nav-buttons>
   <ion-content class=" card-background-page" >
     <div class='text-center' ng-show="isLoading">
-      <ion-spinner icon="spiral"></ion-spinner>
+      <ion-spinner icon="spiral" class="spiral-spiner"></ion-spinner>
         Cargando lista de promociones...
     </div>
     <ion-refresher
     pulling-text="Arrastrar para actualizar..."
-    on-refresh="loadEvent()"
+    on-refresh="loadEvent(true)"
     spinner='none'>
   </ion-refresher>
   <!-- aqui promociones -->
+  <div ng-if="list_promociones !== undefined && !list_promociones.length" class=" white-c padding  text-center">
+    <div class="padding no-results">
+      <i class="icon ion-alert"></i> No se encontraron promociones
+    </div>
+   </div>
 <ion-card class='list card ' ng-repeat='promo in list_promociones'>
 
   <div  class="item item-image" ng-repeat='(key,value) in promo.imagen'>
@@ -20,23 +25,22 @@
     </div>
   </div>
     <div class="no-padding title-promo bold">
-      <p class="white-c">
-        {{promo.title}}
+      <p class="white-c" ng-bind-html='promo.title'>
       </p>
       <!-- <p ng-bind-html='promo.Cuerpo'></p> -->
     </div>
     <div class="card-tipo-promo">
       {{promo.tipo_promo_titulo}}
     </div>
-    <div class="item tabs  tabs-icon-left">
-        <a class="tab-item" >
+    <div class="item tabs white-b  tabs-icon-left">
+        <a class="tab-item icon-i" >
           <i class="icon ion-clock icon-left"></i>
           1 minuto
         </a>
-        <a class="tab-item" >
+        <a class="tab-item icon-i" >
           <i class="icon ion-heart icon-right"></i>
         </a>
-        <a class="tab-item" >
+        <a class="tab-item icon-i" >
           <i class="icon ion-android-share-alt icon-right"></i>
         </a>
       </div>

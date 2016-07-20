@@ -93,7 +93,7 @@ angular.module('pickplace', [
       url: '/map',
       views: {
         'tab-map': {
-          templateUrl: 'templates/pruebas.html',
+          templateUrl: 'templates/mapa.html',
           // controller: 'MainCtrl'
         }
       }

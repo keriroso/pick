@@ -71,6 +71,12 @@ h1 {
 .white-c {
   color: white !important; }
 
+.white-b {
+  background: white !important; }
+
+.icon-i {
+  color: #444444 !important; }
+
 .border-width {
   border-width: 0px !important; }
 
@@ -193,11 +199,17 @@ span.back-text {
   display: none !important; }
 
 .spinner svg {
-  /* width: 1em; */
-  /* height: 1em; */
   width: 25% !important;
   height: auto !important;
   margin: 20% 0% 0% 0%; }
+
+.no-results {
+  border-radius: 10px;
+  background: #e74c3c; }
+
+.spiral-spiner svg {
+  width: 28px !important;
+  height: 28px !important; }
 
 .fondo-block {
   height: 100%;

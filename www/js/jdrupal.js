@@ -1973,7 +1973,7 @@ function entity_create(entity_type, bundle, entity, options) {
  */
 function entity_create_social(entity_type, bundle, entity, options) {
   // entity_type='app_login';
-  options.resource='login';
+  options.resource='create';
   options.service='app_login';
   console.log('////Options////');
   console.log(options);
@@ -1982,18 +1982,40 @@ function entity_create_social(entity_type, bundle, entity, options) {
   console.log(JSON.stringify(entity));
   console.log('resource:'+options.resource);
   console.log('service:'+options.service);
-  console.log('// end options///');
+  console.log('// end options///');  
+  console.log(entity.data);
+  var entity_wrapper = _entity_wrap(entity_type, entity);
+  var primary_key = entity_primary_key(entity_type);
+  var data = JSON.stringify(entity);
   try {
     Drupal.services.call({
-        method: 'POST',
-        async: options.async,
-        path: 'app_login/login',
-        service: options.service,
-        resource:options.resource ,
-        entity_type: entity_type,
-        bundle: bundle,
-        data: JSON.stringify(entity),
+      method: 'POST',
+      // path: 'app_login/' + entity.type +'/{"name":"KevinRosado","email":"kerirosogmailcom"}/{"name":"KevinRosado","email":"kerirosogmailcom"}',
+      path: 'app_login' ,
+      service: options.service,
+      resource: options.resource,
+      // entity_type: entity_type,
+      // entity_id: entity[entity_primary_key(entity_type)],
+      bundle: bundle,
+      data: data,
+      // path: entity_type + '/' + entity[primary_key] + '.json',
+      // path: 'app_login/facebook/kevin/kerirosogmailcom/',
+      // service: options.service,
+      // resource: options.resource,
+      //  entity_type: entity_type,
+      // // entity_id: entity[entity_primary_key(entity_type)],
+      // data: data,
+        // method: 'PUT',
+        // // async: options.async,
+        // bundle: bundle,
+        // path: 'app_login/facebook/'+JSON.stringify(entity.data),
+        // service: options.service,
+        // resource:options.resource ,
+        // entity_type: entity_type,
+        // bundle: bundle,
+        // data: JSON.stringify(entity),
         success: function(data) {
+          console.log('resultado',data);
           console.log(data);
           console.log(options.success);
           try {
@@ -2002,7 +2024,7 @@ function entity_create_social(entity_type, bundle, entity, options) {
           catch (error) { console.log('entity_create - success - ' + error); }
         },
         error: function(xhr, status, message) {
-          console.log(message);
+          console.log('error',message);
           try {
             if (options.error) { options.error(xhr, status, message); }
           }
@@ -2720,13 +2742,15 @@ function user_create(account, options) {
 }
 
 /**
- * Creates a user.
+ * Creates a user with facebook.
  * @param {Object} account
  * @param {Object} options
  */
+
 function user_create_social(account, options) {
+
   try {
-    services_resource_defaults(options, 'user', 'create');
+    // services_resource_defaults(options, 'user', 'create');
     entity_create_social('user', null, account, options);
   }
   catch (error) { console.log('user_create - ' + error); }
