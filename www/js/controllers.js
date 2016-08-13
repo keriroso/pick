@@ -127,6 +127,8 @@ Funcion de inicio de sesion
         console.log(data);
         $scope.isLoading = false;
         $rootScope.usuario=data;
+        console.log('vio preferencia');
+        console.log($rootScope.usuario.field_saw_preference);
         if($rootScope.usuario.field_saw_preference){
           $scope.saw_preference=0;
           angular.forEach($rootScope.usuario.field_saw_preference,function(key,value){
