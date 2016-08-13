@@ -12,7 +12,7 @@
                 {{key}}
               </div>
               <div class="list-preferencia">
-                <div  class=" item-thumbnail-preferencia" ng-class="{class_active: searchPreferences(list_preferences.pid)}"  ng-repeat="list_preferences in value">
+                <div  class=" item-thumbnail-preferencia in done in" ng-class="{class_active: searchPreferences(list_preferences.pid)}"  ng-repeat="list_preferences in value">
                   <div   ng-click='SavePreferences(list_preferences.pid,list_preferences.cid)'>
                     <i class="{{list_preferences.clase}} font-icon"></i>
                     <div class="no-margin">

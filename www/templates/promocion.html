@@ -18,7 +18,7 @@
       <i class="icon ion-alert"></i> No se encontraron promociones
     </div>
    </div>
-     
+
 
 <ion-card class='list card  ' ng-repeat='promo in list_promociones'>
   <div  class="item item-image" ng-repeat='(key,value) in promo.imagen'>
@@ -33,15 +33,15 @@
     <div class="card-tipo-promo">
       {{promo.tipo_promo_titulo}}
     </div>
-    <div class="item tabs white-b  tabs-icon-left">
-        <a class="tab-item icon-i" >
+    <div class="item tabs  stable-bg tabs-icon-left">
+        <a class="tab-item stable-bg positive black-c" >
           <i class="icon ion-clock icon-left"></i>
           1 minuto
         </a>
-        <a class="tab-item icon-i" >
+        <a class="tab-item stable-bg assertive" >
           <i class="icon ion-heart icon-right"></i>
         </a>
-        <a class="tab-item icon-i"  ng-controller='SocialShareCtrl' ng-click='ShareSocial()'>
+        <a class="tab-item stable-bg positive-900"  ng-controller='SocialShareCtrl' ng-click='ShareSocial()'>
           <i class="icon ion-android-share-alt icon-right"></i>
         </a>
       </div>
