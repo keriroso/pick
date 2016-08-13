@@ -94,7 +94,7 @@ angular.module('pickplace.services', [])
     if (forceLoading){
       // Llama al webservice para obtener la lista de preferencias
 
-      $http.get(WebservicesURL + '/rest/ws_preferencia_usuario.json').
+      $http.get(WebservicesURL + '/cons/ws_preferencia_usuario.json').
       then(function(response) {
         if (response.data.length > 0) {
           setLocalVariable('preferences', angular.toJson(response.data));
@@ -106,6 +106,53 @@ angular.module('pickplace.services', [])
     } else {
       this.eventsList = angular.fromJson(getLocalVariable('preferences'));
       defer.resolve(this.eventsList);
+    }
+    return defer.promise;
+  };
+
+})
+
+.service('Promociones', function($q, $http, WebservicesURL) {
+
+  this.PromoList = [];
+
+
+  this.getList = function(forceLoading) {
+    var defer = $q.defer();
+
+    var lastLoading = parseInt( getLocalVariable('lastLoading2') );
+    // Si no hay un valor anterior, asumir que es cero
+    if (isNaN(lastLoading)){
+      lastLoading = 0;
+    }
+
+    // Obtiene la fecha y hora actual en milisegundos (desde 1970)
+    var currentTime = new Date().getTime();
+
+    // Calcula la fecha de expiración de la información a 3 horas desde la última vez
+    var expirationTime = lastLoading + (3600 * 3 * 1000);
+
+    // Si se tiene una fecha de carga anterior y el tiempo de la última carga
+    // ya expiró, se forza la carga de información desde la web.
+    if (lastLoading === 0 || currentTime > expirationTime){
+      forceLoading = true;
+    }
+
+    if (forceLoading){
+      // Llama al webservice para obtener la lista de preferencias
+
+      $http.get(WebservicesURL + '/cons/ws_promo_activa.json').
+      then(function(response) {
+        if (response.data.length > 0) {
+          setLocalVariable('promociones', angular.toJson(response.data));
+          setLocalVariable('lastLoading2', currentTime);
+          this.PromoList = response.data;
+          defer.resolve(response.data);
+        }
+      });
+    } else {
+      this.PromoList = angular.fromJson(getLocalVariable('promociones'));
+      defer.resolve(this.PromoList);
     }
     return defer.promise;
   };

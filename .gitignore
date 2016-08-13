@@ -3,3 +3,11 @@
 
 # escriba los archivos a ignorar en repositorio
 # *.ext -> ignora todos los archivo con extrension ext
+
+node_modules/
+platforms/
+plugins/
+bower_components/
+
+# Do not track APK files
+*.apk

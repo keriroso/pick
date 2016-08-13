@@ -30,3 +30,34 @@
   background:  rgb(59, 89, 152) none repeat scroll 0% 0%;
   color: white;
 }
+
+
+
+#cf3 img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes cf3FadeInOut {
+  0% {
+  opacity:1;
+}
+45% {
+opacity:1;
+}
+55% {
+opacity:0;
+}
+100% {
+opacity:0;
+}
+}
+
+#cf3 img.top {
+animation-name: cf3FadeInOut;
+animation-timing-function: ease-in-out;
+animation-iteration-count: infinite;
+animation-duration: 10s;
+animation-direction: alternate;
+}

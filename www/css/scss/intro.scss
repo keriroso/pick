@@ -2,16 +2,16 @@
 /* Intro
 ==================================*/
 
-.skip{
-  top: 10px;
-  position: absolute;
-  right: 0;
-  border: 0px solid #ccc;
-  text-transform: uppercase;
-  color: #e67e22;
-  font-size: 2em;
-  z-index: 1;
-  background: transparent;
+.skip {
+    top: 20px;
+    position: absolute;
+    right: 10px;
+    border: 0px solid #ccc;
+    text-transform: uppercase;
+    color: #e67e22;
+    font-size: 1em;
+    z-index: 1;
+    background: transparent;
 }
 .slider {
   height: 100%;

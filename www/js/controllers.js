@@ -7,7 +7,77 @@ Controlador para el intro de pick
 */
 .constant('WebservicesURL','http://dev-pick-backend.pantheonsite.io')
 .constant('LogoApp','<img ng-src="img/logo/pick-logo.png">')
+.controller('SocialShareCtrl', function($scope, $cordovaSocialSharing) {
+$scope.ShareSocial=function(){
+  $cordovaSocialSharing
+    .share(message, subject, file, link) // Share via native share sheet
+    .then(function(result) {
+      alert('Compartido con exito')
+    }, function(err) {
+      // An error occured. Show a message to the user
+      alert(err);
+    });
 
+  $cordovaSocialSharing
+    .shareViaTwitter(message, image, link)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  $cordovaSocialSharing
+    .shareViaWhatsApp(message, image, link)
+    .then(function(result) {
+        alert('Compartido con exito');
+    }, function(err) {
+        alert(err);
+    });
+
+  $cordovaSocialSharing
+    .shareViaFacebook(message, image, link)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  // access multiple numbers in a string like: '0612345678,0687654321'
+  $cordovaSocialSharing
+    .shareViaSMS(message, number)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+// toArr, ccArr and bccArr must be an array, file can be either null, string or array
+  $cordovaSocialSharing
+    .shareViaEmail(message, subject, toArr, ccArr, bccArr, file)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  $cordovaSocialSharing
+    .canShareVia(socialType, message, image, link)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  $cordovaSocialSharing
+    .canShareViaEmail()
+    .then(function(result) {
+      // Yes we can
+    }, function(err) {
+      // Nope
+    });
+};
+
+})
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
   $scope.showMenu = function () {
     $ionicSideMenuDelegate.toggleLeft();
@@ -16,8 +86,9 @@ Controlador para el intro de pick
     $ionicSideMenuDelegate.toggleRight();
   };
 })
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,$window) {
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,$window,$ionicSideMenuDelegate) {
   // Funcion de redirección  al inicio de sesion
+    $ionicSideMenuDelegate.canDragContent(false);
   $scope.startApp = function() {
     $window.location.href='#/inicio';
   };
@@ -32,6 +103,8 @@ Controlador para el intro de pick
   //  Funcion que llama cuando un slider cambia para indicar que es el indice
   $scope.slideChanged = function(index) {
     $scope.slideIndex = index;
+    if($scope.slideIndex==3)
+      $window.location.href='#/inicio';
   };
   var intro = getLocalVariable('Intro');
   if (intro) {
@@ -43,8 +116,9 @@ Controlador para el intro de pick
 LOGIN
 Funcion de inicio de sesion
 */
-.controller('UserCtrl', function($scope,$sce,$timeout,$state, $stateParams,$http, ionicMaterialInk,$rootScope,Login,$window,$ionicModal,$ionicPopup) {
+.controller('UserCtrl', function($scope,$sce,$timeout,$state, $stateParams,$http, ionicMaterialInk,$rootScope,Login,$window,$ionicModal,$ionicPopup,$ionicSideMenuDelegate) {
 
+  $ionicSideMenuDelegate.canDragContent(false);
   //funcion para inicio de session
   $scope.login = function(user1,pass) {
     $scope.isLoading = true;
@@ -317,7 +391,8 @@ Funcion de inicio de sesion
   };
 })
 
-.controller('PreferencesCtrl', function($rootScope,$scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferences) {
+.controller('PreferencesCtrl', function($rootScope,$scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferences,$ionicSideMenuDelegate) {
+  $ionicSideMenuDelegate.canDragContent(true);
 
   // Set Motion
   $timeout(function() {
@@ -418,8 +493,9 @@ Funcion de inicio de sesion
   };
   $scope.loadEvent();
 })
-.controller('MainCtrl', function($scope, $state) {
+.controller('MainCtrl', function($scope, $state,$ionicSideMenuDelegate) {
 // $scope.logo='<img src=\"../img/logo/pick-logo.png\">';
+  $ionicSideMenuDelegate.canDragContent(true);
 })
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
   // Form data for the login modal

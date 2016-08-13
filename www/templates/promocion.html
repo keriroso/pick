@@ -18,8 +18,9 @@
       <i class="icon ion-alert"></i> No se encontraron promociones
     </div>
    </div>
-<ion-card class='list card ' ng-repeat='promo in list_promociones'>
+     
 
+<ion-card class='list card  ' ng-repeat='promo in list_promociones'>
   <div  class="item item-image" ng-repeat='(key,value) in promo.imagen'>
     <div ng-bind-html='value'>
     </div>
@@ -40,11 +41,12 @@
         <a class="tab-item icon-i" >
           <i class="icon ion-heart icon-right"></i>
         </a>
-        <a class="tab-item icon-i" >
+        <a class="tab-item icon-i"  ng-controller='SocialShareCtrl' ng-click='ShareSocial()'>
           <i class="icon ion-android-share-alt icon-right"></i>
         </a>
       </div>
     </div>
   </ion-card>
+
 </ion-content>
 </ion-view>

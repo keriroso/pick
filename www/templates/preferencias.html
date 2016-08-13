@@ -3,19 +3,21 @@
     <button  ng-controller='UserCtrl' class="button button-clear" ng-click='userUpdate(preferencesSelected);'><i class="icon ion-ios-checkmark-empty"></i></button>
   </button>
   </ion-nav-buttons>
-    <ion-content  overflow-scroll=true scroll=true  ng-class="{expanded:$scope.isExpanded}">
+    <ion-content  overflow-scroll=true scroll=true  >
         <h5 class="content padding double-padding-x">Ayúdanos a crear tu propia experiencia personalizada</h5>
         <div class="" ng-init='loadEvent(true)'>
-          <div class='item item-divider line-height-normal height animate-fade-slide-in-righ padding-preferencia'  ng-repeat="(key, value) in list_preferences | groupBy: 'Categoria'">
-            <div class="rem">
-              {{key}}
-            </div>
-            <div class="list-preferencia">
-              <div  class=" item-thumbnail-preferencia" ng-class="{class_active: searchPreferences(list_preferences.pid)}"  ng-repeat="list_preferences in value">
-                <div   ng-click='SavePreferences(list_preferences.pid,list_preferences.cid)'>
-                  <i class="{{list_preferences.clase}} font-icon"></i>
-                  <div class="no-margin">
-                    {{list_preferences.Preferencia}}
+          <div  class="list animate-fade-slide-in-right">
+            <div class='item item-divider line-height-normal height  padding-preferencia'  ng-repeat="(key, value) in list_preferences | groupBy: 'Categoria'">
+              <div class="rem">
+                {{key}}
+              </div>
+              <div class="list-preferencia">
+                <div  class=" item-thumbnail-preferencia" ng-class="{class_active: searchPreferences(list_preferences.pid)}"  ng-repeat="list_preferences in value">
+                  <div   ng-click='SavePreferences(list_preferences.pid,list_preferences.cid)'>
+                    <i class="{{list_preferences.clase}} font-icon"></i>
+                    <div class="no-margin">
+                      {{list_preferences.Preferencia}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -24,5 +26,7 @@
         </div>
         <ion-spinner class="spinner-energized app-loading" ng-show='isLoading' icon='ripple'></ion-spinner>
     </ion-content>
+
+
     <!-- <button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-checkmark"></i></button> -->
 </ion-view>

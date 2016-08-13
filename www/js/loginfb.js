@@ -85,13 +85,9 @@ angular.module('pickplace.loginfb', ['pickplace.services','angular.filter'])
         };
 
       }
-      //guardar en drupal
-      // $rootScope.createAccount($scope.user.name,$scope.user.email,$scope.user.id);
-
-
+      
     }
   });
-
   $scope.loginFacebook = function() {
     $scope.isLoading=true;
     console.log('$scope.status: ' + $scope.status);

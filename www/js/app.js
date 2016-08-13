@@ -5,13 +5,13 @@ angular.module('pickplace', [
   'ionic-material',
   'ngFacebook',
   'pickplace.loginfb',
-  'pickplace.geolocation'])
+  'pickplace.geolocation',
+  'ngCordova'])
   .run(function($ionicPlatform,$window,$rootScope) {
     console.log($ionicPlatform);
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
-
       if (window.localStorage.getItem("User") != null && window.localStorage.getItem("SessionToken") != null
       && window.localStorage.getItem("SessionName") != null && window.localStorage.getItem("SessionId") != null) {
         $rootScope.usuario=angular.fromJson(getLocalVariable('User'));
@@ -79,6 +79,7 @@ angular.module('pickplace', [
       url: "/tab",
       abstract: true,
       templateUrl: "templates/tabs.html",
+      controller: 'MainCtrl'
     })
     .state('tab.main', {
       url: '/main',

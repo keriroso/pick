@@ -1,25 +1,37 @@
-<!--
-Create tabs with an icon and label, using the tabs-positive style.
-Each tab's child <ion-nav-view> directive will have its own
-navigation history that also transitions its views in and out.
--->
-<ion-tabs class="tabs-icon-bottom tabs-bottom tabs-calm ">
 
+
+  <!--
+  Create tabs with an icon and label, using the tabs-positive style.
+  Each tab's child <ion-nav-view> directive will have its own
+  navigation history that also transitions its views in and out.
+  -->
+  <ion-tabs class="tabs-icon-bottom tabs-bottom tabs-calm">
   <!-- Dashboard Tab -->
-  <ion-tab title="Home" icon-off="ion-home-outline" icon-on="ion-home" >
+  <!-- Ion tab for andrid and iphone -->
+  <!-- Home  -->
+  <ion-tab ng-if="currentPlatform==='android'" title="Inicio" href="#/tab/main" icon="ion-home" >
+    <ion-nav-view name="tab-main" ></ion-nav-view>
+  </ion-tab>
+  <ion-tab ng-if="currentPlatform!=='android'" title="Inicio" href="#/tab/main" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" >
     <ion-nav-view name="tab-main"></ion-nav-view>
   </ion-tab>
-  <ion-tab title="Mapa" icon-off="ion-map-outline" icon-on="ion-map" >
-    <ion-nav-view name="tab-main"></ion-nav-view>
+  <!-- Home end -->
+  <!-- Promociones  -->
+  <ion-tab ng-if="currentPlatform==='android'"  href="#/tab/promocion" title="Promociones"  icon="ion-pricetags" >
+    <ion-nav-view name="tab-promocion" ></ion-nav-view>
   </ion-tab>
-  <ion-tab title="Check-in" icon-off="ion-pin-outline" icon-on="ion-pin" >
-    <ion-nav-view name="tab-main"></ion-nav-view>
+  <ion-tab ng-if="currentPlatform!=='android'" href="#/tab/promocion" title="Promociones" icon-off="ion-ios-pricetags-outline" icon-on="ion-ios-pricetags" >
+    <ion-nav-view name="tab-promocion" ></ion-nav-view>
   </ion-tab>
-  <ion-tab title="Promociones" icon-off="ion-ios-pricetags-outline" icon-on="ion-ios-pricetags-outline" >
-    <ion-nav-view name="tab-main"></ion-nav-view>
+  <!-- Promociones end -->
+  <!-- Mapa  -->
+  <ion-tab ng-if="currentPlatform==='android'" title="Mapa" href="#/tab/map" icon="ion-map" >
+    <ion-nav-view name="tab-map"></ion-nav-view>
   </ion-tab>
-  <ion-tab title="Mi Perfil" icon-off="ion-person-outline" icon-on="ion-person" >
-    <ion-nav-view name="tab-main"></ion-nav-view>
+  <ion-tab ng-if="currentPlatform!=='android'" title="Mapa" href="#/tab/map" icon-off="ion-ios-navigate-outline" icon-on="ion-ios-navigate" >
+    <ion-nav-view name="tab-map"></ion-nav-view>
   </ion-tab>
+  <!-- Mapa end -->
+
 
 </ion-tabs>

@@ -6,6 +6,25 @@
 .height{
   height: 100%!important;
 }
+.auto-h{
+  height: auto!important;
+}
+.concrete{
+      color: #95a5a6!important;
+}
+.text-decoration-none{
+  text-decoration: none!important;
+}
+.radius{
+  border-radius: 50%
+}
+.pre-line{
+  white-space: pre-line!important;
+}
+.relative{
+  position: relative!important;
+}
+
 input {
   color: #FFF;
   letter-spacing: 0.15rem;
@@ -34,6 +53,12 @@ h1 {
 }
 .white-c{
   color:white!important;
+}
+.white-b{
+  background:white!important;
+}
+.icon-i{
+  color: #444!important
 }
 .border-width{
   border-width: 0px!important;
@@ -68,6 +93,13 @@ h1 {
 .m-left{
   margin-left: 5%;
 }
+.right-p{
+  right: 0!important;
+}
+.left-p{
+  left: 0!important;
+}
+
 .both{
   clear: both;
 }

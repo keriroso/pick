@@ -6,9 +6,89 @@ INTRO
 Controlador para el intro de pick
 */
 .constant('WebservicesURL','http://dev-pick-backend.pantheonsite.io')
+.constant('LogoApp','<img ng-src="img/logo/pick-logo.png">')
+.controller('SocialShareCtrl', function($scope, $cordovaSocialSharing) {
+$scope.ShareSocial=function(){
+  $cordovaSocialSharing
+    .share(message, subject, file, link) // Share via native share sheet
+    .then(function(result) {
+      alert('Compartido con exito')
+    }, function(err) {
+      // An error occured. Show a message to the user
+      alert(err);
+    });
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,$window) {
+  $cordovaSocialSharing
+    .shareViaTwitter(message, image, link)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  $cordovaSocialSharing
+    .shareViaWhatsApp(message, image, link)
+    .then(function(result) {
+        alert('Compartido con exito');
+    }, function(err) {
+        alert(err);
+    });
+
+  $cordovaSocialSharing
+    .shareViaFacebook(message, image, link)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  // access multiple numbers in a string like: '0612345678,0687654321'
+  $cordovaSocialSharing
+    .shareViaSMS(message, number)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+// toArr, ccArr and bccArr must be an array, file can be either null, string or array
+  $cordovaSocialSharing
+    .shareViaEmail(message, subject, toArr, ccArr, bccArr, file)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  $cordovaSocialSharing
+    .canShareVia(socialType, message, image, link)
+    .then(function(result) {
+      // Success!
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+
+  $cordovaSocialSharing
+    .canShareViaEmail()
+    .then(function(result) {
+      // Yes we can
+    }, function(err) {
+      // Nope
+    });
+};
+
+})
+.controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
+  $scope.showMenu = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+  $scope.showRightMenu = function () {
+    $ionicSideMenuDelegate.toggleRight();
+  };
+})
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,$window,$ionicSideMenuDelegate) {
   // Funcion de redirección  al inicio de sesion
+    $ionicSideMenuDelegate.canDragContent(false);
   $scope.startApp = function() {
     $window.location.href='#/inicio';
   };
@@ -34,29 +114,9 @@ Controlador para el intro de pick
 LOGIN
 Funcion de inicio de sesion
 */
-.controller('UserCtrl', function($scope,$sce,$timeout,$state, $stateParams,$http, ionicMaterialInk,$rootScope,Login,$window,$ionicModal,$ionicPopup) {
-  //inicio session de facebook
-  $scope.$on('UserFacebook', function(event,args) {
-    $scope.userData = args.user;
-    console.log($scope.userData);
-    var userName='';
-    var userEmail='';
-    var userId='';// el id se lo toma como password
-    var facebook=true;
-    angular.forEach($scope.userData,function(key,value){
-      if(!angular.isUndefined(key.name) || !angular.isUndefined(key.mail) || !angular.isUndefined(key.id)){
-        userName=key.name;
-        userEmail=key.email;
-        userId= key.id;// el id se lo toma como password
-      }else {
-        var userPicture=key.data.url;
-      }
-    });
-    console.log(userName);
+.controller('UserCtrl', function($scope,$sce,$timeout,$state, $stateParams,$http, ionicMaterialInk,$rootScope,Login,$window,$ionicModal,$ionicPopup,$ionicSideMenuDelegate) {
 
-    $scope.createAccount(userName,userEmail,userId,facebook);
-  });
-
+  $ionicSideMenuDelegate.canDragContent(false);
   //funcion para inicio de session
   $scope.login = function(user1,pass) {
     $scope.isLoading = true;
@@ -329,7 +389,8 @@ Funcion de inicio de sesion
   };
 })
 
-.controller('PreferencesCtrl', function($rootScope,$scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferences) {
+.controller('PreferencesCtrl', function($rootScope,$scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,Preferences,$ionicSideMenuDelegate) {
+  $ionicSideMenuDelegate.canDragContent(true);
 
   // Set Motion
   $timeout(function() {
@@ -411,8 +472,28 @@ Funcion de inicio de sesion
     });
   };
 })
-.controller('MainCtrl', function($scope, $state) {
+.controller('PromoCtrl', function($scope, $state,Promociones) {
+  $scope.list_promociones = [];
+  $scope.isLoading = true;
 
+  $scope.loadEvent = function (forceLoading){
+    $scope.isLoading = true;
+    console.log('cargando');
+    if (forceLoading === undefined){
+      forceLoading = false;
+    }
+    Promociones.getList(forceLoading).then(function(data){
+      $scope.list_promociones = data;
+      console.log(data);
+      $scope.isLoading = false;
+      console.log(data);
+    });
+  };
+  $scope.loadEvent();
+})
+.controller('MainCtrl', function($scope, $state,$ionicSideMenuDelegate) {
+// $scope.logo='<img src=\"../img/logo/pick-logo.png\">';
+  $ionicSideMenuDelegate.canDragContent(true);
 })
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
   // Form data for the login modal
